@@ -43,6 +43,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunManager">
@@ -66,7 +67,10 @@
       <updated>1583670963983</updated>
       <workItem from="1583670970957" duration="1061000" />
       <workItem from="1583680848830" duration="595000" />
-      <workItem from="1583681467781" duration="19000" />
+      <workItem from="1583681467781" duration="123000" />
+      <workItem from="1583959278337" duration="709000" />
+      <workItem from="1584271710390" duration="3677000" />
+      <workItem from="1584355105557" duration="3619000" />
     </task>
     <servers />
   </component>
@@ -82,6 +86,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="443" y="206" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583681139176" />
+    <state x="765" y="229" key="#com.intellij.ide.util.MemberChooser" timestamp="1584272852270">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="765" y="229" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1584272852270" />
     <state x="614" y="215" key="#main" timestamp="1583671581979">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -90,22 +98,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="677" y="311" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1583671507509" />
-    <state width="1877" height="281" key="GridCell.Tab.0.bottom" timestamp="1583681443645">
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom" timestamp="1584358565084">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1583681443645" />
-    <state width="1877" height="281" key="GridCell.Tab.0.center" timestamp="1583681443645">
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584358565084" />
+    <state width="1877" height="281" key="GridCell.Tab.0.center" timestamp="1584358565084">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="281" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1583681443645" />
-    <state width="1877" height="281" key="GridCell.Tab.0.left" timestamp="1583681443645">
+    <state width="1877" height="281" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1584358565084" />
+    <state width="1877" height="281" key="GridCell.Tab.0.left" timestamp="1584358565084">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="281" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1583681443645" />
-    <state width="1877" height="281" key="GridCell.Tab.0.right" timestamp="1583681443645">
+    <state width="1877" height="281" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1584358565084" />
+    <state width="1877" height="281" key="GridCell.Tab.0.right" timestamp="1584358565084">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="281" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1583681443645" />
+    <state width="1877" height="281" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1584358565084" />
     <state x="398" y="199" key="SettingsEditor" timestamp="1583681440871">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -1,6 +1,6 @@
-	# CoreWar
+# CoreWar
 	
-	Projet d'Info4B de fin de cycle.
+Projet d'Info4B de fin de cycle.
 
 # Etat #
 En cours de developpement.

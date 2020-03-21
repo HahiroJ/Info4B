@@ -1,7 +1,8 @@
 package MARS_CORE;
 
 /**
- * Définition du type des opérations
+ * Définition du type des instruction.
+ * Les instructions sont codées dans le CPU. 
  */
 
 public enum Instructions {

@@ -1,7 +1,7 @@
 package MARS_CORE;
 
 /**
- * Argument, regroupe le mode d'execution et l'adresse de l'instruction. 
+ * Argument, regroupe le mode d'execution et l'adresse d'un argument de l'instruction. 
  */
 
 public class Argument {
@@ -18,6 +18,18 @@ public class Argument {
         this.mode = "#";
         this.register = new Register();
         this.register.setMEMORY_SIZE(mem_size);
+    }
+
+    public String getMode() {
+        return this.mode;
+    }
+
+    public Register getRegister() {
+        return this.register;
+    }
+
+    public void setRegister(Register reg) {
+        this.register = reg;
     }
 
     public boolean equals(Argument arg) {

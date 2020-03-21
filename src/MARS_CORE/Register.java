@@ -25,7 +25,7 @@ public class Register {
         this.MEMORY_SIZE = mem_size;
     }
 
-    public int get() {
+    public int getAdress() {
         return modulo(this.adress);
     }
 
@@ -43,7 +43,7 @@ public class Register {
     }
 
     public boolean equals(Register reg) {
-        return (this.get() == reg.get());
+        return (this.getAdress() == reg.getAdress());
     }
 
     public Register minus(Register reg) {
@@ -58,6 +58,6 @@ public class Register {
     
     @Override
     public String toString() {
-        return("" + this.get());
+        return("" + this.getAdress());
     }
 }

@@ -1,2 +1,3 @@
-Imp	1250 3
-Dwarf 4582 4
+Jonathan imp 4500
+Lucas dwarf 2500
+Idiot imp2 6500

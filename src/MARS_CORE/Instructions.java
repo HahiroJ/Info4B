@@ -6,5 +6,5 @@ package MARS_CORE;
  */
 
 public enum Instructions {
-    MOV, ADD, SUB, JMP, JMZ, JMG, DJZ, CMP, DAT;
+    MOV, ADD, SUB, JMP, JMZ, JMN, DJN, CMP, DAT;
 }

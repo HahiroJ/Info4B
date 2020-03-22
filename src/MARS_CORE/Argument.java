@@ -32,6 +32,10 @@ public class Argument {
         this.register = reg;
     }
 
+    public void setMode(String mod) {
+        this.mode = mod;
+    }
+
     public boolean equals(Argument arg) {
         return (this.mode.equals(arg.mode) && this.register.equals(arg.register));
     }

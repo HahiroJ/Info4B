@@ -11,7 +11,19 @@ En cours de developpement.
 |CPU et dependances -> ok|                       |                  |  
 |Compilateur RedCode -> x|                       |                  |
 
-## Groupe 
+## Architecture
+
+* CoreWar
+* MARS_CORE
+    * Program.java
+    * CPU.java
+        * Instruction.java
+        * Process.java
+            * Argument.java
+            * Register.java
+* GUI
+ 
+### Groupe 
 Jonathan MARTIN
 Lucas HADEY 
 

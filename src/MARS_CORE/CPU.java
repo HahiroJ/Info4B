@@ -22,6 +22,10 @@ public class CPU {
         }
     }
 
+    public Process[] getMemory() {
+        return this.Memory;
+    }
+
     //Evaluation de la première adresse
     public Register evaluateFirstRegister(Register reg) {
         Register first = new Register();
@@ -69,6 +73,41 @@ public class CPU {
         Process process = Memory[reg.getAdress()];
         Register firstRegister = evaluateFirstRegister(reg);
         Register secondRegister = evaluateSecondRegister(reg);
+
+        switch (process.getInstruction()) {
+            case DAT: {
+                return reg;
+            }
+            case MOV: {
+                return MOV(process, reg, firstRegister, secondRegister);
+            }
+            case ADD: {
+                return ADD(process, reg, firstRegister, secondRegister);
+            }
+            case SUB: {
+                return SUB(process, reg, firstRegister, secondRegister);
+            }
+            case JMP: {
+                return JMP(process, reg, firstRegister, secondRegister);
+            }
+            case JMZ: {
+                return JMZ(process, reg, firstRegister, secondRegister);
+            }
+            case JMN: {
+                return JMN(process, reg, firstRegister, secondRegister);
+            }
+            case CMP: {
+                return CMP(process, reg, firstRegister, secondRegister);
+            }
+            case DJN: {
+                return DJN(process, reg, firstRegister, secondRegister);
+            }
+            case DJZ: {
+                return DJZ(process, reg, firstRegister, secondRegister);
+            }
+            default:
+                return null;
+        }
     }
 
     //ici on declare les differentes méthodes relatives aux instructions RedCode
@@ -97,11 +136,79 @@ public class CPU {
     }
 
     public Register ADD(Process proc, Register reg, Register fReg, Register sReg) {
-        
+        if (proc.getArg_A().getMode() == "#") {
+            Memory[reg.plus(sReg).getAdress()].getArg_B().setRegister(Memory[reg.plus(sReg).getAdress()].getArg_B().getRegister().plus(Memory[reg.getAdress()].getArg_A().getRegister()));    
+        } 
+        else {
+            Memory[reg.plus(sReg).getAdress()].getArg_A().setRegister(Memory[reg.plus(sReg).getAdress()].getArg_A().getRegister().plus(Memory[reg.plus(fReg).getAdress()].getArg_A().getRegister()));
+            Memory[reg.plus(sReg).getAdress()].getArg_B().setRegister(Memory[reg.plus(sReg).getAdress()].getArg_B().getRegister().plus(Memory[reg.plus(fReg).getAdress()].getArg_B().getRegister()));            
+        }
+        return reg.plus(new Register(1, this.MEMORY_SIZE));
+    }
+
+    public Register SUB(Process proc, Register reg, Register fReg, Register sReg) {
+        if (proc.getArg_A().getMode() == "#") {
+            Memory[reg.plus(sReg).getAdress()].getArg_B().setRegister(Memory[reg.plus(sReg).getAdress()].getArg_B().getRegister().minus(Memory[reg.getAdress()].getArg_A().getRegister()));
+        }
+        else {
+            Memory[reg.plus(sReg).getAdress()].getArg_A().setRegister(Memory[reg.plus(sReg).getAdress()].getArg_A().getRegister().minus(Memory[reg.plus(fReg).getAdress()].getArg_A().getRegister()));
+            Memory[reg.plus(sReg).getAdress()].getArg_B().setRegister(Memory[reg.plus(sReg).getAdress()].getArg_B().getRegister().minus(Memory[reg.plus(fReg).getAdress()].getArg_B().getRegister()));
+        }
+        return reg.plus(new Register(1,this.MEMORY_SIZE));
+    }
+
+    public Register JMP(Process proc, Register reg, Register fReg, Register sReg) {
+        return reg.plus(fReg);
+    }
+
+    public Register JMZ(Process proc, Register reg, Register fReg, Register sReg) {
+        return (Memory[reg.plus(sReg).getAdress()].getArg_B().getRegister().getAdress() == 0) ? reg.plus(fReg) : reg.plus(new Register(1,this.MEMORY_SIZE));
+    }
+
+    public Register JMN(Process proc, Register reg, Register fReg, Register sReg) {
+        return (Memory[reg.plus(sReg).getAdress()].getArg_B().getRegister().getAdress() != 0) ? reg.plus(fReg) : reg.plus(new Register(1,this.MEMORY_SIZE));
+    }
+
+    public Register CMP(Process proc, Register reg, Register fReg, Register sReg) {
+        boolean temp;
+        if(proc.getArg_A().getMode() == "#") {
+            temp = (Memory[reg.getAdress()].getArg_A().getRegister().equals(Memory[reg.plus(sReg).getAdress()].getArg_B().getRegister()));
+        }
+        else {
+            boolean A = (Memory[reg.plus(fReg).getAdress()].equals(Memory[reg.plus(sReg).getAdress()]));
+            boolean B = (Memory[reg.plus(fReg).getAdress()].getArg_A().getMode().equals(Memory[reg.plus(sReg).getAdress()].getArg_A().getMode()));
+            boolean C = (Memory[reg.plus(fReg).getAdress()].getArg_A().getRegister().equals(Memory[reg.plus(sReg).getAdress()].getArg_A().getRegister()));
+            boolean D = (Memory[reg.plus(fReg).getAdress()].getArg_B().getMode().equals(Memory[reg.plus(sReg).getAdress()].getArg_B().getMode()));
+            boolean E = (Memory[reg.plus(fReg).getAdress()].getArg_B().getRegister().equals(Memory[reg.plus(sReg).getAdress()].getArg_B().getRegister()));
+            temp = A && B && C && D && E;
+        }
+        return (temp) ? reg.plus(new Register(1,this.MEMORY_SIZE).plus(new Register(1,this.MEMORY_SIZE))) : reg.plus(new Register(1,this.MEMORY_SIZE));
+    }
+
+    public Register DJN(Process proc, Register reg, Register fReg, Register sReg) {
+        Register temp = new Register(1, this.MEMORY_SIZE);
+        if (proc.getArg_B().getMode() == "#") {
+            temp = Memory[reg.getAdress()].getArg_B().getRegister();    
+        } 
+        else {
+            Memory[reg.plus(sReg).getAdress()].getArg_B().setRegister(Memory[reg.plus(sReg).getAdress()].getArg_B().getRegister().minus(new Register(1,this.MEMORY_SIZE)));
+            temp = Memory[reg.plus(sReg).getAdress()].getArg_B().getRegister();
+        }
+        return (temp.getAdress() != 0) ? reg.plus(fReg) : reg.plus(new Register(1,this.MEMORY_SIZE));
+    }
+
+    public Register DJZ(Process proc, Register reg, Register fReg, Register sReg) {
+        Register temp = new Register(1, this.MEMORY_SIZE);
+        if (proc.getArg_B().getMode() == "#") {
+            temp = Memory[reg.getAdress()].getArg_B().getRegister();    
+        } 
+        else {
+            Memory[reg.plus(sReg).getAdress()].getArg_B().setRegister(Memory[reg.plus(sReg).getAdress()].getArg_B().getRegister().minus(new Register(1,this.MEMORY_SIZE)));
+            temp = Memory[reg.plus(sReg).getAdress()].getArg_B().getRegister();
+        }
+        return (temp.getAdress() == 0) ? reg.plus(fReg) : reg.plus(new Register(1,this.MEMORY_SIZE));
     }
 
     //RedCode Instructions methods
-    
-    
     
 }

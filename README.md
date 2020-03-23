@@ -8,7 +8,7 @@ En cours de developpement.
 |MARS_CORE (en cours)   |CoreWar (en attente)   |GUI (en cours)    |
 |:----------------------|:----------------------|:-----------------|
 |Lucas HADEY            |Lucas Hadey            |Jonathan MARTIN   |
-|CPU et dependances -> x|                       |                  |  
+|CPU et dependances -> ok|                       |                  |  
 |Compilateur RedCode -> x|                       |                  |
 
 ## Groupe 

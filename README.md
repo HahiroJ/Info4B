@@ -5,11 +5,11 @@ Projet d'Info4B de fin de cycle.
 ## Etat 
 En cours de developpement.
 
-|MARS_CORE (en cours)   |CoreWar (en attente)   |GUI (en cours)    |
+|MARS_CORE (terminer)   |CoreWar (en attente)   |GUI (en cours)    |
 |:----------------------|:----------------------|:-----------------|
 |Lucas HADEY            |Lucas Hadey            |Jonathan MARTIN   |
 |CPU et dependances -> ok|                       |                  |  
-|Compilateur RedCode -> x|                       |                  |
+|Compilateur RedCode -> ok|                       |                  |
 
 ## Architecture
 

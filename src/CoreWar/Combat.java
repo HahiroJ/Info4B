@@ -55,6 +55,17 @@ public class Combat implements Runnable {
         this.scores = tScores;
     }
 
+    public Combat(LinkedList<Process> listP1, LinkedList<Process> listP2, int[] tScores, int begin, int mem_size, int max_cycle, long Pspeed) {
+        super();
+        this.warrior1 = new Warrior(listP1);
+        this.warrior2 = new Warrior(listP2);
+        this.beginner = begin;
+        this.speed = Pspeed;
+        this.MEMORY_SIZE = mem_size;
+        this.CYCLE_MAX = max_cycle;
+        this.scores = tScores;
+    }
+
     public Combat(LinkedList<Process> listP1, LinkedList<Process> listP2, int[] tScores, int begin, long Pspeed) {
         super();
         this.warrior1 = new Warrior(listP1);

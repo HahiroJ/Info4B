@@ -47,7 +47,7 @@ loop ADD #4, bomb
 bomb DAT #0, #0     
 ```
 
-### _Architecture_
+## _Architecture_
 
 * CoreWar
 * MARS_CORE
@@ -59,7 +59,7 @@ bomb DAT #0, #0
             * Register.java
 * GUI
 
-### _Etat_ 
+## _Etat_ 
 En cours de developpement.
 
 |MARS_CORE (terminer)   |CoreWar (en attente)   |GUI (en cours)    |

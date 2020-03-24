@@ -39,7 +39,7 @@ Available addressing modes :
 
 Dwarf.asm :
     
-```assembly
+```redcode
 ;the dwarf
 loop ADD #4, bomb
      MOV bomb, @bomb

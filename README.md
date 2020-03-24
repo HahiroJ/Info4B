@@ -51,7 +51,7 @@ bomb DAT #0, #0
 
 * CoreWar
 * MARS_CORE
-    * Program.java
+    * Warrior.java
     * CPU.java
         * Instruction.java
         * Process.java

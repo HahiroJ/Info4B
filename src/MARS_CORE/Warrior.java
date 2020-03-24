@@ -3,19 +3,27 @@ package MARS_CORE;
 import java.util.LinkedList;
 
 /**
- * la classe Program represente la liste des adresses à executer 
- * relative au programme.
+ * la classe Warrior represente la liste des adresses à executer 
+ * relative au Warriorme.
  * Le déroulement des adresses à executer est penser comme un buffer circulaire.  
  */
 
-public class Program {
+public class Warrior {
 
     private LinkedList<Register> registers;
     private LinkedList<Process> process;
 
-    public Program(LinkedList<Process> listProcess) {
+    public Warrior(LinkedList<Process> listP2) {
         this.registers = new LinkedList<Register>();
-        this.process = listProcess;
+        this.process = listP2;
+    }
+
+    public LinkedList<Register> getRegisters() {
+        return this.registers;
+    }
+
+    public LinkedList<Process> getProcess() {
+        return this.process;
     }
 
     public void execute(CPU cpu) {

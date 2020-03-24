@@ -45,7 +45,7 @@ public class Fenetre extends JFrame
         JMenu menu2 = new JMenu("Classements");
 
         i21 = new JMenuItem("Classement des joueurs");
-        i22 = new JMenuItem("Classement des programmes");
+        i22 = new JMenuItem("Classement des Warriormes");
         menu2.add(i21); menu2.add(i22);
 
         JMenu menu3 = new JMenu("En savoir plus");

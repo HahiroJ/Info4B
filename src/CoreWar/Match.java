@@ -38,6 +38,7 @@ public class Match {
 
     public int[] fight() {
         int availableCPU = Runtime.getRuntime().availableProcessors();
+        availableCPU = (availableCPU == 1) ? 1 : availableCPU - 1;
         ExecutorService threadsPool = Executors.newFixedThreadPool(availableCPU);
 
         for (int i = 0; i < this.nCombat; i++) {

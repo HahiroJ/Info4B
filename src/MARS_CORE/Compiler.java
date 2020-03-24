@@ -50,7 +50,8 @@ public class Compiler {
 
         } catch (FileNotFoundException e) {
             //TODO: handle exception
-            System.err.println("Error, invalid file or filePath");
+            System.err.println("Error #1, invalid file or filePath");
+            System.err.println(e);
         }
 
         return listProcess;
@@ -102,7 +103,7 @@ public class Compiler {
                     process.setInstruction(Instructions.DJZ);
                 }
                 else {
-                    System.err.println("Error, invalid instruction : " + instruction);
+                    System.err.println("Error #2, invalid instruction : " + instruction);
                 }
 
                 //Extraction du premier argument
@@ -120,7 +121,7 @@ public class Compiler {
                     //l'adresse est une reference a un label
                     String labelA = scanner.next();
                     if (labels.get(labelA) == null) {
-                        System.err.println("Error, invalid label : " + labelA);
+                        System.err.println("Error #3, invalid label : " + labelA);
                     }
                     else {
                         process.getArg_A().setRegister(new Register(labels.get(labelA) - position, this.MEMORY_SIZE));
@@ -148,7 +149,7 @@ public class Compiler {
                         //l'adresse est une reference a un label
                         String labelB = scanner.next();
                         if (labels.get(labelB) == null) {
-                            System.err.println("Error, invalid label : " + labelB);
+                            System.err.println("Error #4, invalid label : " + labelB);
                         }
                         else {
                             process.getArg_B().setRegister(new Register(labels.get(labelB) - position, this.MEMORY_SIZE));
@@ -166,7 +167,8 @@ public class Compiler {
                 //TODO: handle exception
                 if (!line.matches("[ \t\n\f\r]+") && !line.equals("")) {
                     //si les lignes ne sont pas vides
-                    System.err.println("Error in line : " + line);
+                    System.err.println("Error #5 in line : " + line);
+                    System.err.println(e);
                 }
                 scanner.close();
                 return null;
@@ -206,7 +208,8 @@ public class Compiler {
                         //TODO: handle exception
                         if (!line.matches("[ \t\n\f\r]+") && !line.equals("")) {
                             //si les lignes ne sont pas vides
-                            System.err.println("Error in line : " + line);
+                            System.err.println("Error #6 in line : " + line);
+                            System.err.println(e);
                         }
                     }
                 }
@@ -217,7 +220,8 @@ public class Compiler {
 
         } catch (FileNotFoundException e) {
             //TODO: handle exception
-            System.err.println("Error, invalid file or filePath");
+            System.err.println("Error #7, invalid file or filePath");
+            System.err.println(e);
         }
 
         return labels;

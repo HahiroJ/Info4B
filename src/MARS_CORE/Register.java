@@ -16,13 +16,13 @@ public class Register {
     }
 
     public Register(int ad) {
-        this.adress = modulo(ad);
         this.MEMORY_SIZE = 8000;
+        this.adress = modulo(ad);
     }
 
     public Register(int ad, int mem_size) {
-        this.adress = modulo(ad);
         this.MEMORY_SIZE = mem_size;
+        this.adress = modulo(ad);
     }
 
     public int getAdress() {
@@ -38,8 +38,8 @@ public class Register {
     }
 
     public int modulo(int n) {
-        int temp = n % MEMORY_SIZE;
-        return (temp < 0) ? temp + MEMORY_SIZE : temp;
+        int temp = n % this.MEMORY_SIZE;
+        return (temp < 0) ? temp + this.MEMORY_SIZE : temp;
     }
 
     public boolean equals(Register reg) {
@@ -47,12 +47,12 @@ public class Register {
     }
 
     public Register minus(Register reg) {
-        Register temp = new Register(modulo(this.adress - reg.adress), MEMORY_SIZE);
+        Register temp = new Register(modulo(this.adress - reg.adress), this.MEMORY_SIZE);
         return (temp);
     }
 
     public Register plus(Register reg) {
-        Register temp = new Register(modulo(this.adress + reg.adress));
+        Register temp = new Register(modulo(this.adress + reg.adress), this.MEMORY_SIZE);
         return (temp);
     }
     

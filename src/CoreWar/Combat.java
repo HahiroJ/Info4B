@@ -21,40 +21,6 @@ public class Combat implements Runnable {
     private int CYCLE_MAX;
     private int[] scores;
 
-    public Combat(LinkedList<Process> listP1, LinkedList<Process> listP2, int[] tScores, int begin, int mem_size) {
-        super();
-        this.warrior1 = new Warrior(listP1);
-        this.warrior2 = new Warrior(listP2);
-        this.beginner = begin;
-        this.speed = 0;
-        this.MEMORY_SIZE = mem_size;
-        this.CYCLE_MAX = 16000;
-        this.scores = tScores;
-    }
-
-    public Combat(LinkedList<Process> listP1, LinkedList<Process> listP2, int[] tScores, int begin) {
-        super();
-        this.warrior1 = new Warrior(listP1);
-        this.warrior2 = new Warrior(listP2);
-        this.beginner = begin;
-        this.speed = 0;
-        this.MEMORY_SIZE = 8000;
-        this.CYCLE_MAX = 16000;
-        this.scores = tScores;
-    }
-
-    public Combat(LinkedList<Process> listP1, LinkedList<Process> listP2, int[] tScores, int begin, int mem_size,
-            long Pspeed) {
-        super();
-        this.warrior1 = new Warrior(listP1);
-        this.warrior2 = new Warrior(listP2);
-        this.beginner = begin;
-        this.speed = Pspeed;
-        this.MEMORY_SIZE = mem_size;
-        this.CYCLE_MAX = 16000;
-        this.scores = tScores;
-    }
-
     public Combat(LinkedList<Process> listP1, LinkedList<Process> listP2, int[] tScores, int begin, int mem_size, int max_cycle, long Pspeed) {
         super();
         this.warrior1 = new Warrior(listP1);
@@ -63,17 +29,6 @@ public class Combat implements Runnable {
         this.speed = Pspeed;
         this.MEMORY_SIZE = mem_size;
         this.CYCLE_MAX = max_cycle;
-        this.scores = tScores;
-    }
-
-    public Combat(LinkedList<Process> listP1, LinkedList<Process> listP2, int[] tScores, int begin, long Pspeed) {
-        super();
-        this.warrior1 = new Warrior(listP1);
-        this.warrior2 = new Warrior(listP2);
-        this.beginner = begin;
-        this.speed = Pspeed;
-        this.MEMORY_SIZE = 8000;
-        this.CYCLE_MAX = 16000;
         this.scores = tScores;
     }
 
@@ -129,12 +84,7 @@ public class Combat implements Runnable {
         if (this.beginner == 0) {
             while (!this.warrior1.getRegisters().isEmpty() && !this.warrior2.getRegisters().isEmpty()
                     && cycle < this.CYCLE_MAX) {
-                /*try {
-                    Thread.sleep(this.speed);
-                } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }*/
+                        
                 cycle++;
                 this.warrior1.execute(cpu);
                 if (!this.warrior1.getRegisters().isEmpty()) {
@@ -144,12 +94,7 @@ public class Combat implements Runnable {
         }
         else {
             while (!this.warrior1.getRegisters().isEmpty() && !this.warrior2.getRegisters().isEmpty() && cycle < this.CYCLE_MAX) {
-                /*try {
-                    Thread.sleep(this.speed);
-                } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }*/
+                
                 cycle++;
                 this.warrior2.execute(cpu);
                 if (!this.warrior2.getRegisters().isEmpty()) {

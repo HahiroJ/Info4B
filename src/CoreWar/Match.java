@@ -6,6 +6,12 @@ import java.util.concurrent.ExecutorService;
 
 import MARS_CORE.Process;
 
+/**
+ * Represente un match entre deux warriors
+ * un match est constitué d'un certain nombres de combat
+ * Chaque combat est réalisé en paralleles via des threads
+ */
+
 public class Match {
 
     private LinkedList<Process> warrior1;
@@ -16,34 +22,14 @@ public class Match {
     private long speed;
     private int nCombat;
 
-    public Match(LinkedList<Process> w1, LinkedList<Process> w2) {
-        this.warrior1 = w1;
-        this.warrior2 = w2;
-        this.scores = new int[2];
-        this.MEMORY_SIZE = 8000;
-        this.MAX_CYCLE = 16000;
-        this.speed = 0;
-        this.nCombat = 40;
-    }
-
-    public Match(LinkedList<Process> w1, LinkedList<Process> w2, int mem_size, int max_cycle, int pSpeed) {
+    public Match(LinkedList<Process> w1, LinkedList<Process> w2, int mem_size, int max_cycle, int combat, long pSpeed) {
         this.warrior1 = w1;
         this.warrior2 = w2;
         this.scores = new int[2];
         this.MEMORY_SIZE = mem_size;
         this.MAX_CYCLE = max_cycle;
         this.speed = pSpeed;
-        this.nCombat = 40;
-    }
-
-    public Match(LinkedList<Process> w1, LinkedList<Process> w2, int mem_size, int max_cycle) {
-        this.warrior1 = w1;
-        this.warrior2 = w2;
-        this.scores = new int[2];
-        this.MEMORY_SIZE = mem_size;
-        this.MAX_CYCLE = max_cycle;
-        this.speed = 0;
-        this.nCombat = 40;
+        this.nCombat = combat;
     }
 
     public int[] getScores() {

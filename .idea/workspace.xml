@@ -17,7 +17,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/GUI" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -38,6 +38,8 @@
       <workItem from="1584890578933" duration="20000" />
       <workItem from="1584890692880" duration="2033000" />
       <workItem from="1584904342829" duration="314000" />
+      <workItem from="1584983117596" duration="2928000" />
+      <workItem from="1585047639601" duration="131000" />
     </task>
     <servers />
   </component>
@@ -45,9 +47,9 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1220" y="275" key="FileChooserDialogImpl" timestamp="1584890596829">
+    <state x="1220" y="275" key="FileChooserDialogImpl" timestamp="1584991757385">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1220" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1584890596829" />
+    <state x="1220" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1584991757385" />
   </component>
 </project>

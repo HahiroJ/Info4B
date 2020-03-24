@@ -2,11 +2,11 @@
 	
 Projet d'Info4B de fin de cycle.
 
-## __Description__
+## _Description_
 
 
 
-## __RedCode__
+## _RedCode_
 Support RedCode '94 Standard and Labels.
 
 ### Instruction set
@@ -47,7 +47,7 @@ loop ADD #4, bomb
 bomb DAT #0, #0     
 ```
 
-### __Architecture__
+### _Architecture_
 
 * CoreWar
 * MARS_CORE
@@ -59,7 +59,7 @@ bomb DAT #0, #0
             * Register.java
 * GUI
 
-### __Etat__ 
+### _Etat_ 
 En cours de developpement.
 
 |MARS_CORE (terminer)   |CoreWar (en attente)   |GUI (en cours)    |
@@ -68,8 +68,9 @@ En cours de developpement.
 |CPU et dependances -> ok|                       |                  |  
 |Compilateur RedCode -> ok|                       |                  |
  
-#### __Groupe__ 
+#### _Groupe_ 
 Jonathan MARTIN
+
 Lucas HADEY 
 
 --------------------------------------------------------------------------------------------------

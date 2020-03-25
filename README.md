@@ -67,6 +67,9 @@ bomb DAT #0, #0
 ## _Architecture_
 
 * CoreWar
+  * Corewar.java
+    * Match.java
+      * Combat.java
 * MARS_CORE
     * Warrior.java
     * CPU.java

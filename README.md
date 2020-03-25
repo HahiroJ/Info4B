@@ -20,7 +20,7 @@ As you can see, the basic unit of memory in Core War is one instruction, instead
 
 The execution of the programs is equally simple. The MARS executes one instruction at a time, and then proceeds to the next one in the memory, unless the instruction explicitly tells it to jump to another address. If there is more than one program running, (as is usual) the programs execute alternately, one instruction at a time. The execution of each instruction takes the same time, one cycle, whether it is `MOV`, `DIV` or even `DAT` (which kills the process).
 
-> Source: [The beginners' guide to Redcode](vyznev.net/corewar/guide.html)
+> Source: [The beginners' guide to Redcode](www.vyznev.net/corewar/guide.html)
 
 ## _RedCode_
 Support RedCode '94 Standard and Labels.

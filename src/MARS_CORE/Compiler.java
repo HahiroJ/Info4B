@@ -16,13 +16,13 @@ public class Compiler {
 
     public Compiler() {
         this.MEMORY_SIZE = 8000;
-        this.IRegex = "(?i)(MOV|ADD|SUB|JMP|JMZ|JMN|DJN|DJZ|CMP|DAT)";
+        this.IRegex = "(?i)(MOV|ADD|SUB|JMP|JMZ|JMN|DJN|DJZ|CMP|DAT|SPL)";
         this.MRegex = "#|@|<";
     }
 
     public Compiler(int mem_size) {
         this.MEMORY_SIZE = mem_size;
-        this.IRegex = "(?i)(MOV|ADD|SUB|JMP|JMZ|JMN|DJN|DJZ|CMP|DAT)";
+        this.IRegex = "(?i)(MOV|ADD|SUB|JMP|JMZ|JMN|DJN|DJZ|CMP|DAT|SPL)";
         this.MRegex = "#|@|<";
     }
 
@@ -101,6 +101,9 @@ public class Compiler {
                 }
                 else if (Instructions.DJZ.equals(instruction)) {
                     process.setInstruction(Instructions.DJZ);
+                }
+                else if (Instructions.SPL.equals(instruction)) {
+                    process.setInstruction(Instructions.SPL);
                 }
                 else {
                     System.err.println("Error #2, invalid instruction : " + instruction);

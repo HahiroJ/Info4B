@@ -17,7 +17,8 @@ public enum Instructions {
     DJN("DJN","djn"), 
     DJZ("DJZ","djz"), 
     CMP("CMP","cmp"), 
-    DAT("DAT","dat");
+    DAT("DAT","dat"),
+    SPL("SPL","spl");
 
     private String Maj = "";
     private String Min = "";

@@ -79,6 +79,7 @@ public class Player implements Runnable {
                             break;
                         }
                         default:
+                            Server.pw[this.id].println("Server Error => No commands founds. Try !help");
                             break;
                     }
                     scanner.close();

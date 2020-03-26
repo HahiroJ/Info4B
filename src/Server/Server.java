@@ -23,6 +23,7 @@ public class Server {
                 }
                 case "-nC": {
                     maxClients = Integer.parseInt(args[i + 1]);
+                    break;
                 }
                 case "-h":
                 case "--help": {

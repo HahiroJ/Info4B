@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 /**
  * Player
@@ -52,7 +53,12 @@ public class Player implements Runnable {
     }
 
     //Methode relative aux commandes
-    
+        public void help() {
+            String h = "Server Help =>\n";
+            h+= "~~ CoreWar commands ~~\n";
+            h+="coucou\n";
+            Server.pw[this.id].println(h);
+        }
     //Methode relative aux commandes
 
     @Override
@@ -62,10 +68,24 @@ public class Player implements Runnable {
             while (true) {
                 String mes = this.buffered_reader.readLine();
                 System.out.println("Send by " + this.pseudo+"#"+this.id+" => "+mes);
-                if (mes.equals("END")) {
+                if (mes.equals("!END")) {
                     break;
                 }
-                sendAll(mes);
+                if (mes.startsWith("!")) {
+                    Scanner scanner = new Scanner(mes);
+                    switch (scanner.next()) {
+                        case "!help": {
+                            help();
+                            break;
+                        }
+                        default:
+                            break;
+                    }
+                    scanner.close();
+                }
+                else {
+                    sendAll(mes);
+                }
             }
             this.buffered_reader.close();
             this.print_writer.close();

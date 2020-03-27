@@ -52,6 +52,11 @@ public class Player implements Runnable {
         return this.id;
     }
 
+    synchronized public void setPseudo(String p) {
+        this.pseudo = p;
+        Server.pw[this.id].println("Server Info => Your new nickname is : " + this.pseudo + "#" + this.id);
+    }
+
     public void sendAll(String message) {
         for (int i = 0; i < Server.idClient; i++) {
             if (Server.pw[i] != null && i != this.id) {
@@ -64,7 +69,8 @@ public class Player implements Runnable {
         public void help() {
             String h = "Server Help =>\n";
             h+= "~~ CoreWar commands ~~\n";
-            h+="coucou\n";
+            h+="!list : return list of players on this server\n";
+            h+="!pseudo : change your nickname\n";
             Server.pw[this.id].println(h);
         }
 
@@ -101,6 +107,10 @@ public class Player implements Runnable {
                         }
                         case "!list": {
                             list();
+                            break;
+                        }
+                        case "!pseudo": {
+                            this.setPseudo(scanner.next());
                             break;
                         }
                         default:

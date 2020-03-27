@@ -59,7 +59,9 @@ public class DataEntry implements Runnable {
                             break;
                         }
                         case "!submit": {
-                            this.submit(scanner.nextLine().trim());
+                            if (scanner.hasNextLine()) {
+                                this.submit(scanner.nextLine().trim());
+                            }
                             break;
                         }
                         default:

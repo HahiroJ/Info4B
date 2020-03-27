@@ -127,7 +127,12 @@ public class Player implements Runnable {
                             break;
                         }
                         case "!pseudo": {
-                            this.setPseudo(scanner.next());
+                            if (scanner.hasNext()) {
+                                this.setPseudo(scanner.next());
+                            }
+                            else {
+                                Server.pw.get(this.getid()).println("Server Info => method arguments incorrect.");
+                            }
                             break;
                         }
                         default:

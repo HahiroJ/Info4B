@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.LinkedList;
 
 public class Server {
 
@@ -12,6 +13,7 @@ public class Server {
     static boolean help = false;
     static PrintWriter pw[];
     static int idClient;
+    static LinkedList<Player> clients = new LinkedList<Player>();
 
     public static void main(String[] args) {
 
@@ -44,7 +46,8 @@ public class Server {
                 System.out.println("Socket listen => " + server_socket);
                 while (idClient < maxClients) {
                     Socket socket = server_socket.accept();
-                    Thread client = new Thread(new Player(idClient,socket));
+                    clients.add(new Player(idClient,socket));
+                    Thread client = new Thread(clients.get(idClient));
                     System.out.println("Player is connected => " + socket);
                     idClient++;
                     client.start();

@@ -68,7 +68,7 @@ public class Client {
                 System.out.println(mes);
             }
 
-            System.out.println("!END");
+            System.out.println("!quit");
 
             bufferer_reader.close();
             print_writer.close();

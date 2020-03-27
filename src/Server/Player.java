@@ -79,6 +79,16 @@ public class Player implements Runnable {
             }
             Server.pw.get(this.getid()).println(l);
         }
+
+        public void privateMSG(int id, String msg) {
+            if (id < Server.clients.size()) {
+                String mes = "Private message from " + this.pseudo+"#"+this.getid()+" => " + msg;
+                Server.pw.get(id).println(mes);
+            }
+            else {
+                Server.pw.get(this.getid()).println("Server Info => This user doesn't exist.");
+            }
+        }
     //Methode relative aux commandes
 
     @Override
@@ -101,6 +111,15 @@ public class Player implements Runnable {
                     switch (scanner.next()) {
                         case "!help": {
                             help();
+                            break;
+                        }
+                        case "!msg": {
+                            if (scanner.hasNextInt()) {
+                                privateMSG(scanner.nextInt(), scanner.nextLine().trim());
+                            }
+                            else {
+                                Server.pw.get(this.getid()).println("Server Info => method arguments incorrect.");
+                            }
                             break;
                         }
                         case "!list": {

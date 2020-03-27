@@ -1,6 +1,7 @@
 package Client;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -17,8 +18,32 @@ public class DataEntry implements Runnable {
     }
 
     //Methode relative aux commandes
-    
+
+    public void submit(String filePath) {
+        String warrior ="";
+        warrior = fileRead(filePath);
+        System.out.println("~~ Your Warrior ~~\n");
+        System.out.println(warrior);
+        System.out.println("~~ Your Warrior (end) ~~\n");
+    }
+
     //Methode relative aux commandes
+
+    public String fileRead(String path) {
+        String fichier = "";
+        try {
+            BufferedReader fr = new BufferedReader(new FileReader(path));
+            String ligne;
+            while ((ligne = fr.readLine()) != null) {
+                fichier += ligne+"\n";
+            }
+            fr.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return fichier;
+    }
     
     @Override
     public void run() {
@@ -31,6 +56,10 @@ public class DataEntry implements Runnable {
                     switch (scanner.next()) {
                         case "!help": {
                             this.print_writer.println(mes);
+                            break;
+                        }
+                        case "!submit": {
+                            this.submit(scanner.nextLine().trim());
                             break;
                         }
                         default:

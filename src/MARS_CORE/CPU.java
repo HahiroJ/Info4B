@@ -105,6 +105,9 @@ public class CPU {
             case DJZ: {
                 return DJZ(process, reg, firstRegister, secondRegister);
             }
+            case SPL: {
+                return SPL(process, reg, firstRegister, secondRegister);
+            }
             default:
                 return null;
         }
@@ -207,6 +210,10 @@ public class CPU {
             temp = Memory[reg.plus(sReg).getAdress()].getArg_B().getRegister();
         }
         return (temp.getAdress() == 0) ? reg.plus(fReg) : reg.plus(new Register(1,this.MEMORY_SIZE));
+    }
+
+    public Register SPL(Process proc, Register reg, Register fReg, Register sReg) {
+        return reg.plus(fReg);
     }
 
     //RedCode Instructions methods

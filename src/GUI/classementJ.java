@@ -27,7 +27,7 @@ public class ClassementJ
         {
             StringTokenizer str = new StringTokenizer(ligne);
             newJ = new Joueur(str.nextToken());
-            newJ.setProgramme(str.nextToken());
+            newJ.setWarriorme(str.nextToken());
             newJ.addScore(Long.parseLong(str.nextToken()));
             lj.add(newJ);
         }
@@ -36,7 +36,7 @@ public class ClassementJ
     public void ajoutJoueur(Joueur j) throws IOException
     {
         this.lj.add(j);
-        this.bw.write("\n"+j.getName()+" "+j.getProgramme()+" "+j.getScore());
+        this.bw.write("\n"+j.getName()+" "+j.getWarriorme()+" "+j.getScore());
         this.bw.close();
     }
 
@@ -45,7 +45,7 @@ public class ClassementJ
         triListeRapide(this.lj);
         for(Joueur j : this.lj)
         {
-            System.out.println(j.getName()+" avec le programme "+j.getProgramme()+" a un score de "+j.getScore());
+            System.out.println(j.getName()+" avec le Warriorme "+j.getWarriorme()+" a un score de "+j.getScore());
         }
         this.fr.close();
     }

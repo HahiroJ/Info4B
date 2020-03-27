@@ -16,8 +16,7 @@ public class Argument {
 
     public Argument(int mem_size) {
         this.mode = "#";
-        this.register = new Register();
-        this.register.setMEMORY_SIZE(mem_size);
+        this.register = new Register(0,mem_size);
     }
 
     public String getMode() {

@@ -8,6 +8,8 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
 
 /**
  * Player
@@ -17,14 +19,16 @@ public class Player implements Runnable {
     //private int id;
     private String pseudo;
     private Socket socket;
-    //private String filePath;
-    //private boolean submitWarrior;
+    private String filePath;
+    private boolean submitWarrior;
     private BufferedReader buffered_reader;
     private PrintWriter print_writer;
 
     public Player(Socket s) {
         super();
         //this.id = id;
+        this.filePath = "";
+        this.submitWarrior = false;
         this.socket = s;
         try {
             this.buffered_reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
@@ -64,31 +68,55 @@ public class Player implements Runnable {
     }
 
     //Methode relative aux commandes
-        public void help() {
-            String h = "Server Help =>\n";
-            h+= "~~ CoreWar commands ~~\n";
-            h+="!list : return list of players on this server\n";
-            h+="!pseudo : change your nickname\n";
-            Server.pw.get(this.getid()).println(h);
-        }
+    public void help() {
+        String h = "Server Help =>\n";
+        h+= "~~ CoreWar commands ~~\n";
+        h+="!list : return list of players on this server\n";
+        h+="!pseudo : change your nickname\n";
+        h+="!submit (path) : submit your warrior";
+        Server.pw.get(this.getid()).println(h);
+    }
 
-        public void list() {
-            String l = "Server Connected Players =>\n";
-            for (Player user : Server.clients) {
-                l += "  " + user.getPseudo() + "#" + user.getid() + "\n";
-            }
-            Server.pw.get(this.getid()).println(l);
+    public void list() {
+        String l = "Server Connected Players =>\n";
+        for (Player user : Server.clients) {
+            l += "  " + user.getPseudo() + "#" + user.getid() + "\n";
         }
+        Server.pw.get(this.getid()).println(l);
+    }
 
-        public void privateMSG(int id, String msg) {
-            if (id < Server.clients.size()) {
-                String mes = "Private message from " + this.pseudo+"#"+this.getid()+" => " + msg;
-                Server.pw.get(id).println(mes);
-            }
-            else {
-                Server.pw.get(this.getid()).println("Server Info => This user doesn't exist.");
-            }
+    public void privateMSG(int id, String msg) {
+        if (id < Server.clients.size()) {
+            String mes = "Private message from " + this.pseudo+"#"+this.getid()+" => " + msg;
+            Server.pw.get(id).println(mes);
         }
+        else {
+            Server.pw.get(this.getid()).println("Server Info => This user doesn't exist.");
+        }
+    }
+
+    public void warriorCreate()
+    {
+        try{
+            String contenu = "";
+            while(true)
+            {
+                String temp = this.buffered_reader.readLine();
+                if(temp.equals("!end")){break;}
+                contenu += temp+"\n";
+            }
+
+            // System.out.println(contenu);  Permet de regarder le contenue de la String
+            this.filePath = "C:\\Users\\Jonathan\\IdeaProjects\\testserv\\src\\Warriors\\"+this.pseudo+".txt";
+            File fichier = new File(this.filePath);
+            FileWriter fw =new FileWriter(fichier);
+            fw.write(contenu.trim());
+            fw.close();
+            fichier.createNewFile();
+            this.submitWarrior = true;
+        }catch(IOException e){e.printStackTrace();}
+
+    }
     //Methode relative aux commandes
 
     @Override
@@ -127,16 +155,15 @@ public class Player implements Runnable {
                             break;
                         }
                         case "!pseudo": {
-                            if (scanner.hasNext()) {
-                                this.setPseudo(scanner.next());
-                            }
-                            else {
-                                Server.pw.get(this.getid()).println("Server Info => method arguments incorrect.");
-                            }
+                            this.setPseudo(scanner.next());
+                            break;
+                        }
+                        case "!warrior":{
+                            warriorCreate();
                             break;
                         }
                         default:
-                        Server.pw.get(this.getid()).println("Server Error => No commands founds. Try !help");
+                            Server.pw.get(this.getid()).println("Server Error => No commands founds. Try !help");
                             break;
                     }
                     scanner.close();

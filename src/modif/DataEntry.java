@@ -8,7 +8,7 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class DataEntry implements Runnable {
-    
+
     private BufferedReader buffered_reader;
     private PrintWriter print_writer;
 
@@ -25,6 +25,10 @@ public class DataEntry implements Runnable {
         System.out.println("~~ Your Warrior ~~\n");
         System.out.println(warrior);
         System.out.println("~~ Your Warrior (end) ~~\n");
+
+        this.print_writer.println("!warrior");
+        this.print_writer.println(warrior);
+        this.print_writer.println("!end");
     }
 
     //Methode relative aux commandes
@@ -44,7 +48,7 @@ public class DataEntry implements Runnable {
         }
         return fichier;
     }
-    
+
     @Override
     public void run() {
         // TODO Auto-generated method stub
@@ -59,9 +63,7 @@ public class DataEntry implements Runnable {
                             break;
                         }
                         case "!submit": {
-                            if (scanner.hasNextLine()) {
-                                this.submit(scanner.nextLine().trim());
-                            }
+                            this.submit(scanner.nextLine().trim());
                             break;
                         }
                         default:
@@ -80,18 +82,5 @@ public class DataEntry implements Runnable {
             e.printStackTrace();
         }
         Client.stop = true;
-    }
-
-    public void fileRead(String path) throws IOException
-    {
-        String fichier ="";
-        BufferedReader fr = new BufferedReader(new FileReader(path));
-        String ligne;
-        while ((ligne = fr.readLine()) != null)
-        {
-            fichier +=ligne+"\n";
-        }
-
-        System.out.println(fichier);
     }
 }

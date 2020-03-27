@@ -80,7 +80,7 @@ public class CPU {
             }
             case MOV: {
                 return MOV(process, reg, firstRegister, secondRegister);
-            }
+        }
             case ADD: {
                 return ADD(process, reg, firstRegister, secondRegister);
             }

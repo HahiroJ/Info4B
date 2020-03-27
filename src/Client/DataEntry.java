@@ -1,9 +1,6 @@
 package Client;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Scanner;
 
 public class DataEntry implements Runnable {
@@ -17,7 +14,12 @@ public class DataEntry implements Runnable {
     }
 
     //Methode relative aux commandes
-    
+    public void ajoutG() throws IOException
+    {
+        System.out.println("Give your warrior file path :");
+        String path = buffered_reader.readLine();
+        fileRead(path);
+    }
     //Methode relative aux commandes
     
     @Override
@@ -31,6 +33,10 @@ public class DataEntry implements Runnable {
                     switch (scanner.next()) {
                         case "!help": {
                             this.print_writer.println(mes);
+                            break;
+                        }
+                        case "!submit":{
+                            ajoutG();
                             break;
                         }
                         default:
@@ -49,5 +55,18 @@ public class DataEntry implements Runnable {
             e.printStackTrace();
         }
         Client.stop = true;
+    }
+
+    public void fileRead(String path) throws IOException
+    {
+        String fichier ="";
+        BufferedReader fr = new BufferedReader(new FileReader(path));
+        String ligne;
+        while ((ligne = fr.readLine()) != null)
+        {
+            fichier +=ligne+"\n";
+        }
+
+        System.out.println(fichier);
     }
 }

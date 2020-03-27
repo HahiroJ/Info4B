@@ -39,7 +39,9 @@
       <workItem from="1584890692880" duration="2033000" />
       <workItem from="1584904342829" duration="314000" />
       <workItem from="1584983117596" duration="2928000" />
-      <workItem from="1585047639601" duration="131000" />
+      <workItem from="1585047639601" duration="1336000" />
+      <workItem from="1585311866866" duration="102000" />
+      <workItem from="1585311989599" duration="8152000" />
     </task>
     <servers />
   </component>
@@ -51,5 +53,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1220" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1584991757385" />
+    <state x="342" y="140" key="new project wizard" timestamp="1585314161290">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="342" y="140" key="new project wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1585314161290" />
   </component>
 </project>

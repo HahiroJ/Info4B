@@ -25,6 +25,10 @@ public class DataEntry implements Runnable {
         System.out.println("~~ Your Warrior ~~\n");
         System.out.println(warrior);
         System.out.println("~~ Your Warrior (end) ~~\n");
+
+        this.print_writer.println("!warriorsubmit");
+        this.print_writer.println(warrior);
+        this.print_writer.println("!end");
     }
 
     //Methode relative aux commandes
@@ -82,16 +86,4 @@ public class DataEntry implements Runnable {
         Client.stop = true;
     }
 
-    public void fileRead(String path) throws IOException
-    {
-        String fichier ="";
-        BufferedReader fr = new BufferedReader(new FileReader(path));
-        String ligne;
-        while ((ligne = fr.readLine()) != null)
-        {
-            fichier +=ligne+"\n";
-        }
-
-        System.out.println(fichier);
-    }
 }

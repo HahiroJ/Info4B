@@ -2,6 +2,8 @@ package Server;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -17,14 +19,16 @@ public class Player implements Runnable {
     //private int id;
     private String pseudo;
     private Socket socket;
-    //private String filePath;
-    //private boolean submitWarrior;
+    private String filePath;
+    private boolean submitWarrior;
     private BufferedReader buffered_reader;
     private PrintWriter print_writer;
 
     public Player(Socket s) {
         super();
         //this.id = id;
+        this.filePath = "";
+        this.submitWarrior = false;
         this.socket = s;
         try {
             this.buffered_reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
@@ -89,6 +93,30 @@ public class Player implements Runnable {
                 Server.pw.get(this.getid()).println("Server Info => This user doesn't exist.");
             }
         }
+
+        public void warriorCreate() {
+            try{
+                String contenu = "";
+                while(true)
+                {
+                    String temp = this.buffered_reader.readLine();
+                    if(temp.equals("!end")){break;}
+                    contenu += temp+"\n";
+                }
+    
+                // System.out.println(contenu);  Permet de regarder le contenue de la String
+                this.filePath = "/home/lucas/Documents/IE/Semestre 4/Info4B/Projet/Info4B/src/Server/programs/"+this.pseudo+".asm";
+                File fichier = new File(this.filePath);
+                FileWriter fw =new FileWriter(fichier);
+                fw.write(contenu.trim());
+                fw.close();
+                fichier.createNewFile();
+                this.submitWarrior = true;
+                Server.pw.get(this.getid()).println("Server Info => Your new warrior is saved.");
+            }catch(IOException e){e.printStackTrace();}
+    
+        }
+        
     //Methode relative aux commandes
 
     @Override
@@ -133,6 +161,10 @@ public class Player implements Runnable {
                             else {
                                 Server.pw.get(this.getid()).println("Server Info => method arguments incorrect.");
                             }
+                            break;
+                        }
+                        case "!warriorsubmit": {
+                            this.warriorCreate();
                             break;
                         }
                         default:

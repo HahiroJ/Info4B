@@ -44,6 +44,19 @@ public class Player implements Runnable {
         }
     }
 
+    public String getPseudo() {
+        return this.pseudo;
+    }
+
+    public int getid() {
+        return this.id;
+    }
+
+    synchronized public void setPseudo(String p) {
+        this.pseudo = p;
+        Server.pw[this.id].println("Server Info => Your new nickname is : " + this.pseudo + "#" + this.id);
+    }
+
     public void sendAll(String message) {
         for (int i = 0; i < Server.idClient; i++) {
             if (Server.pw[i] != null && i != this.id) {
@@ -56,8 +69,17 @@ public class Player implements Runnable {
         public void help() {
             String h = "Server Help =>\n";
             h+= "~~ CoreWar commands ~~\n";
-            h+="coucou\n";
+            h+="!list : return list of players on this server\n";
+            h+="!pseudo : change your nickname\n";
             Server.pw[this.id].println(h);
+        }
+
+        public void list() {
+            String l = "Server Connected Players =>\n";
+            for (Player user : Server.clients) {
+                l += "  " + user.getPseudo() + "#" + user.getid() + "\n";
+            }
+            Server.pw[this.id].println(l);
         }
     //Methode relative aux commandes
 
@@ -68,7 +90,12 @@ public class Player implements Runnable {
             while (true) {
                 String mes = this.buffered_reader.readLine();
                 System.out.println("Send by " + this.pseudo+"#"+this.id+" => "+mes);
-                if (mes.equals("!END")) {
+                if (mes.equals("!quit")) {
+                    for (int i = 0; i < Server.idClient; i++) {
+                        if (Server.pw[i] != null && i != this.id) {
+                            Server.pw[i].println("Server Info => "+this.pseudo+"#"+this.id+" is disconnected !");
+                        }
+                    }
                     break;
                 }
                 if (mes.startsWith("!")) {
@@ -76,6 +103,14 @@ public class Player implements Runnable {
                     switch (scanner.next()) {
                         case "!help": {
                             help();
+                            break;
+                        }
+                        case "!list": {
+                            list();
+                            break;
+                        }
+                        case "!pseudo": {
+                            this.setPseudo(scanner.next());
                             break;
                         }
                         default:

@@ -14,18 +14,17 @@ import java.util.Scanner;
  */
 public class Player implements Runnable {
 
-    private int id;
+    //private int id;
     private String pseudo;
     private Socket socket;
-    private String ip;
     //private String filePath;
     //private boolean submitWarrior;
     private BufferedReader buffered_reader;
     private PrintWriter print_writer;
 
-    public Player(int id, Socket s) {
+    public Player(Socket s) {
         super();
-        this.id = id;
+        //this.id = id;
         this.socket = s;
         try {
             this.buffered_reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
@@ -34,8 +33,7 @@ public class Player implements Runnable {
             //TODO: handle exception
             e.printStackTrace();
         }
-        Server.pw[this.id] = this.print_writer;
-        this.ip = this.socket.getRemoteSocketAddress().toString();
+        Server.pw.add(this.print_writer);
         try {
             this.pseudo = buffered_reader.readLine();
         } catch (IOException e) {
@@ -49,18 +47,18 @@ public class Player implements Runnable {
     }
 
     public int getid() {
-        return this.id;
+        return Server.clients.indexOf(this);
     }
 
     synchronized public void setPseudo(String p) {
         this.pseudo = p;
-        Server.pw[this.id].println("Server Info => Your new nickname is : " + this.pseudo + "#" + this.id);
+        Server.pw.get(this.getid()).println("Server Info => Your new nickname is : " + this.pseudo + "#" + this.getid());
     }
 
     public void sendAll(String message) {
-        for (int i = 0; i < Server.idClient; i++) {
-            if (Server.pw[i] != null && i != this.id) {
-                Server.pw[i].println(this.pseudo+"#"+this.id+" => "+message);
+        for (int i = 0; i < Server.clients.size(); i++) {
+            if (Server.pw.get(i) != null && i != this.getid()) {
+                Server.pw.get(i).println(this.pseudo+"#"+this.getid()+" => "+message);
             }
         }
     }
@@ -71,7 +69,7 @@ public class Player implements Runnable {
             h+= "~~ CoreWar commands ~~\n";
             h+="!list : return list of players on this server\n";
             h+="!pseudo : change your nickname\n";
-            Server.pw[this.id].println(h);
+            Server.pw.get(this.getid()).println(h);
         }
 
         public void list() {
@@ -79,7 +77,7 @@ public class Player implements Runnable {
             for (Player user : Server.clients) {
                 l += "  " + user.getPseudo() + "#" + user.getid() + "\n";
             }
-            Server.pw[this.id].println(l);
+            Server.pw.get(this.getid()).println(l);
         }
     //Methode relative aux commandes
 
@@ -89,11 +87,11 @@ public class Player implements Runnable {
         try {
             while (true) {
                 String mes = this.buffered_reader.readLine();
-                System.out.println("Send by " + this.pseudo+"#"+this.id+" => "+mes);
+                System.out.println("Send by " + this.pseudo+"#"+this.getid()+" => "+mes);
                 if (mes.equals("!quit")) {
-                    for (int i = 0; i < Server.idClient; i++) {
-                        if (Server.pw[i] != null && i != this.id) {
-                            Server.pw[i].println("Server Info => "+this.pseudo+"#"+this.id+" is disconnected !");
+                    for (int i = 0; i < Server.clients.size(); i++) {
+                        if (Server.pw.get(i) != null && i != this.getid()) {
+                            Server.pw.get(i).println("Server Info => "+this.pseudo+"#"+this.getid()+" is disconnected !");
                         }
                     }
                     break;
@@ -114,7 +112,7 @@ public class Player implements Runnable {
                             break;
                         }
                         default:
-                            Server.pw[this.id].println("Server Error => No commands founds. Try !help");
+                        Server.pw.get(this.getid()).println("Server Error => No commands founds. Try !help");
                             break;
                     }
                     scanner.close();
@@ -126,6 +124,7 @@ public class Player implements Runnable {
             this.buffered_reader.close();
             this.print_writer.close();
             this.socket.close();
+            Server.remove(this.getid());
         } catch (IOException e) {
             //TODO: handle exception
             e.printStackTrace();

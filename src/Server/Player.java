@@ -163,7 +163,7 @@ public class Player implements Runnable {
 
         public void serverInfo(){
             String s = "\n";
-            s += "   Players Connected : " + Server.clients.size() + "/" + Server.maxClients + "\n";
+            s += "  Players Connected : " + Server.clients.size() + "/" + Server.maxClients + "\n";
             s += "  Memory Size : " + Server.MEMORY_SIZE + "\n";
             s += "  Max cycle : " + Server.MAX_CYCLE + "\n";
             s += "  number of fights : " + Server.combat + " \n";

@@ -23,6 +23,7 @@ public class Player implements Runnable {
     private boolean submitWarrior;
     private BufferedReader buffered_reader;
     private PrintWriter print_writer;
+    private int score;
 
     public Player(Socket s) {
         super();
@@ -30,6 +31,7 @@ public class Player implements Runnable {
         this.filePath = "";
         this.submitWarrior = false;
         this.socket = s;
+        this.score = 0;
         try {
             this.buffered_reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
             this.print_writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream())), true);
@@ -52,6 +54,26 @@ public class Player implements Runnable {
 
     public int getid() {
         return Server.clients.indexOf(this);
+    }
+
+    public boolean getSubmit() {
+        return this.submitWarrior;
+    }
+
+    public String getFilePath() {
+        return this.filePath;
+    }
+
+    public int getScore() {
+        return this.score;
+    }
+
+    public void setScore(int sc) {
+        this.score = sc;
+    }
+
+    public void addScore(int sc) {
+        this.score += sc;
     }
 
     synchronized public void setPseudo(String p) {
@@ -114,7 +136,7 @@ public class Player implements Runnable {
                 this.submitWarrior = true;
                 Server.pw.get(this.getid()).println("Server Info => Your new warrior is saved.");
             }catch(IOException e){e.printStackTrace();}
-    
+            Server.game();
         }
         
     //Methode relative aux commandes
@@ -162,6 +184,9 @@ public class Player implements Runnable {
                                 Server.pw.get(this.getid()).println("Server Info => method arguments incorrect.");
                             }
                             break;
+                        }
+                        case "!ranking": {
+                            Server.ranking(this.getid());
                         }
                         case "!warriorsubmit": {
                             this.warriorCreate();

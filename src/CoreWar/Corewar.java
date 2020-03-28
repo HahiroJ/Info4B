@@ -13,7 +13,7 @@ public class Corewar {
         int nWarrior = 0;
         int MEMORY_SIZE = 8000;
         int MAX_CYCLE = 1000000;
-        long speed = 0;
+        //long speed = 0;
         int combat = 40;
         Scanner scanner = new Scanner(new InputStreamReader(System.in));
         ArrayList<LinkedList<Process>> warriors = new ArrayList<LinkedList<Process>>();
@@ -29,7 +29,7 @@ public class Corewar {
                     System.out.print("FilePath for RedCode of Warrior #" + i + " : ");
                     try {
                         Compiler compiler = new Compiler(MEMORY_SIZE);
-                        warriors.add(i, compiler.compile(scanner.nextLine()));
+                        warriors.add(i, compiler.compile(scanner.nextLine().trim()));
                     } catch (Exception e) {
                         //TODO: handle exception
                         System.err.println("Error, invalid file or filePath");
@@ -44,7 +44,7 @@ public class Corewar {
         int[] finalScores = new int[nWarrior];
         for (int i = 0; i < nWarrior; i++) {
             for (int j = i+1; j < nWarrior; j++) {
-                Match match = new Match(warriors.get(i), warriors.get(j),MEMORY_SIZE,MAX_CYCLE,combat,speed);
+                Match match = new Match(warriors.get(i), warriors.get(j),MEMORY_SIZE,MAX_CYCLE,combat);
                 int[] scores = match.fight();
                 System.out.println("Match " + ((j-i) + i * (2 * nWarrior - i - 1) / 2) + "/" + (nWarrior * (nWarrior - 1) / 2) + " is finished");
                 System.out.println("    Warrior #" + i + " = +" + scores[0]);

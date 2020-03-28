@@ -16,17 +16,16 @@ public class Combat implements Runnable {
     private Warrior warrior1;
     private Warrior warrior2;
     private int MEMORY_SIZE;
-    private long speed;
+    //private long speed;
     private int beginner;
     private int CYCLE_MAX;
     private int[] scores;
 
-    public Combat(LinkedList<Process> listP1, LinkedList<Process> listP2, int[] tScores, int begin, int mem_size, int max_cycle, long Pspeed) {
+    public Combat(LinkedList<Process> listP1, LinkedList<Process> listP2, int[] tScores, int begin, int mem_size, int max_cycle) {
         super();
         this.warrior1 = new Warrior(listP1);
         this.warrior2 = new Warrior(listP2);
         this.beginner = begin;
-        this.speed = Pspeed;
         this.MEMORY_SIZE = mem_size;
         this.CYCLE_MAX = max_cycle;
         this.scores = tScores;

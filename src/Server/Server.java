@@ -16,6 +16,10 @@ public class Server {
     //static int idClient;
     static LinkedList<Player> clients;
 
+    static int MEMORY_SIZE = 8000;
+    static int MAX_CYCLE = 1000000;
+    static int combat = 10;
+
     public static void main(String[] args) {
 
         for (int i = 0; i < args.length; i++) {
@@ -24,9 +28,18 @@ public class Server {
                     port = Integer.parseInt(args[i + 1]);
                     break;
                 }
-                case "-nC": {
+                case "-mC": {
                     maxClients = Integer.parseInt(args[i + 1]);
                     break;
+                }
+                case "-mS": {
+                    MEMORY_SIZE = Integer.parseInt(args[i + 1]);
+                }
+                case "-cy": {
+                    MAX_CYCLE = Integer.parseInt(args[i + 1]);
+                }
+                case "-nCo": {
+                    combat = Integer.parseInt(args[i + 1]);
                 }
                 case "-h":
                 case "--help": {
@@ -69,6 +82,50 @@ public class Server {
     static synchronized public void remove(int i) {
         pw.remove(i);
         clients.remove(i);
+    }
+
+    static public void sendAll(String msg) {
+        for (PrintWriter p : pw) {
+            p.println("Server Info => "+msg);
+        }
+    }
+
+    static public void ranking(int i) {
+        String s = "~~~ Ranking ~~~\n";
+        for (Player player : clients) {
+            s += "---> "+player.getPseudo()+"#"+player.getid()+" : "+player.getScore()+"\n";
+        }
+        s += "~~~ Ranking ~~~\n";
+        pw.get(i).println(s); 
+    }
+
+    static synchronized public void game() {
+        LinkedList<Player> warriors = new LinkedList<Player>();
+        for (int i = 0; i < clients.size(); i++) {
+            if (clients.get(i).getSubmit()) {
+                warriors.add(clients.get(i));
+            }
+        }
+        if (warriors.size() > 1) {
+            for (int i = 0; i < clients.size(); i++) {
+                clients.get(i).setScore(0);
+            }
+            Game worker = new Game(MEMORY_SIZE, MAX_CYCLE, combat, warriors);
+            Thread war = new Thread(worker);
+            war.start();
+            try {
+                war.join();
+            } catch (Exception e) {
+                //TODO: handle exception
+                e.printStackTrace();
+            }
+            for (int i = 0; i < clients.size(); i++) {
+                ranking(i);
+            }
+        }
+        else {
+            System.out.println("Info => just one warrior was submit.");
+        }
     }
 
 }

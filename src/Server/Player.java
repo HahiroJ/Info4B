@@ -92,9 +92,16 @@ public class Player implements Runnable {
     //Methode relative aux commandes
         public void help() {
             String h = "Server Help =>\n";
-            h+= "~~ CoreWar commands ~~\n";
+            h+= "~~~ CoreWar commands ~~~\n";
             h+="!list : return list of players on this server\n";
             h+="!pseudo : change your nickname\n";
+            h+="!info : return info of server\n";
+            h+="!submit [filePath] : submit your warrior \n";
+            h+="!remove : remove your warrior\n";
+            h+="!msg [id] [message] : send private message\n";
+            h+="!ranking : return ranking of the last game\n";
+            h+="!quit : exit the game\n";
+            h+="\n";
             Server.pw.get(this.getid()).println(h);
         }
 
@@ -103,6 +110,7 @@ public class Player implements Runnable {
             for (Player user : Server.clients) {
                 l += "  " + user.getPseudo() + "#" + user.getid() + "\n";
             }
+            l+="\n";
             Server.pw.get(this.getid()).println(l);
         }
 
@@ -163,10 +171,10 @@ public class Player implements Runnable {
 
         public void serverInfo(){
             String s = "\n";
-            s += "  Players Connected : " + Server.clients.size() + "/" + Server.maxClients + "\n";
-            s += "  Memory Size : " + Server.MEMORY_SIZE + "\n";
-            s += "  Max cycle : " + Server.MAX_CYCLE + "\n";
-            s += "  number of fights : " + Server.combat + " \n";
+            s += "Players Connected : " + Server.clients.size() + "/" + Server.maxClients + "\n";
+            s += "Memory Size : " + Server.MEMORY_SIZE + "\n";
+            s += "Max cycle : " + Server.MAX_CYCLE + "\n";
+            s += "number of fights : " + Server.combat + " \n";
             s += "\n";
             Server.pw.get(this.getid()).println("Server Info => " + s);
         }

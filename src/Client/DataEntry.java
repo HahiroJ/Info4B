@@ -22,9 +22,9 @@ public class DataEntry implements Runnable {
     public void submit(String filePath) {
         String warrior ="";
         warrior = fileRead(filePath);
-        System.out.println("~~ Your Warrior ~~\n");
+        System.out.println("~~~ Your Warrior ~~~\n");
         System.out.println(warrior);
-        System.out.println("~~ Your Warrior (end) ~~\n");
+        System.out.println("~~~ Your Warrior (end) ~~~\n");
 
         this.print_writer.println("!warriorsubmit");
         this.print_writer.println(warrior);

@@ -96,6 +96,7 @@ public class Server {
             s += "---> "+player.getPseudo()+"#"+player.getid()+" : "+player.getScore()+"\n";
         }
         s += "~~~ Ranking ~~~\n";
+        s += "\n";
         pw.get(i).println(s); 
     }
 

@@ -127,7 +127,10 @@ public class Player implements Runnable {
                 }
     
                 // System.out.println(contenu);  Permet de regarder le contenue de la String
-                this.filePath = "/home/lucas/Documents/IE/Semestre 4/Info4B/Projet/Info4B/src/Server/programs/"+this.pseudo+".asm";
+                if(this.filePath == "") {
+                    int rand =(int) (Math.random()*100+1);
+                    this.filePath = "/home/lucas/Documents/IE/Semestre 4/Info4B/Projet/Info4B/src/Server/programs/"+this.pseudo+"#"+rand+".asm";
+                }
                 File fichier = new File(this.filePath);
                 FileWriter fw =new FileWriter(fichier);
                 fw.write(contenu.trim());
@@ -137,6 +140,35 @@ public class Player implements Runnable {
                 Server.pw.get(this.getid()).println("Server Info => Your new warrior is saved.");
             }catch(IOException e){e.printStackTrace();}
             Server.game();
+        }
+
+        public void removeWarrior() {
+            try {
+                if (submitWarrior) {
+                    File fichier = new File(this.filePath);
+                    if (fichier.delete()) {
+                        this.filePath = "";
+                        this.submitWarrior = false;
+                        Server.pw.get(this.getid()).println("Server Info => Your warrior was remove.");
+                    }
+                }
+                else {
+                    Server.pw.get(this.getid()).println("Server Info => You haven't saved a warrior.");
+                }
+            } catch (Exception e) {
+                //TODO: handle exception
+                e.printStackTrace();
+            }
+        }
+
+        public void serverInfo(){
+            String s = "\n";
+            s += "   Players Connected : " + Server.clients.size() + "/" + Server.maxClients + "\n";
+            s += "  Memory Size : " + Server.MEMORY_SIZE + "\n";
+            s += "  Max cycle : " + Server.MAX_CYCLE + "\n";
+            s += "  number of fights : " + Server.combat + " \n";
+            s += "\n";
+            Server.pw.get(this.getid()).println("Server Info => " + s);
         }
         
     //Methode relative aux commandes
@@ -152,6 +184,7 @@ public class Player implements Runnable {
                     for (int i = 0; i < Server.clients.size(); i++) {
                         if (Server.pw.get(i) != null && i != this.getid()) {
                             Server.pw.get(i).println("Server Info => "+this.pseudo+"#"+this.getid()+" is disconnected !");
+                            System.out.println("Server Info => "+this.pseudo+"#"+this.getid()+" is disconnected !");
                         }
                     }
                     break;
@@ -176,6 +209,10 @@ public class Player implements Runnable {
                             list();
                             break;
                         }
+                        case "!info": {
+                            this.serverInfo();
+                            break;
+                        }
                         case "!pseudo": {
                             if (scanner.hasNext()) {
                                 this.setPseudo(scanner.next());
@@ -187,6 +224,11 @@ public class Player implements Runnable {
                         }
                         case "!ranking": {
                             Server.ranking(this.getid());
+                            break;
+                        }
+                        case "!remove": {
+                            this.removeWarrior();
+                            break;
                         }
                         case "!warriorsubmit": {
                             this.warriorCreate();
@@ -205,6 +247,7 @@ public class Player implements Runnable {
             this.buffered_reader.close();
             this.print_writer.close();
             this.socket.close();
+            this.removeWarrior();
             Server.remove(this.getid());
         } catch (IOException e) {
             //TODO: handle exception

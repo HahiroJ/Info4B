@@ -18,7 +18,7 @@ public class Server {
 
     static int MEMORY_SIZE = 8000;
     static int MAX_CYCLE = 1000000;
-    static int combat = 10;
+    static int combat = 40;
 
     public static void main(String[] args) {
 

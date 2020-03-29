@@ -75,6 +75,11 @@ public class Server {
         }
         else {
             System.out.println("~~ CoreWar Game Server ~~");
+            System.out.println("-p [port] : set port of server");
+            System.out.println("-mC [maxClient] : set max clients of server");
+            System.out.println("-mS [MEMORY SIZE] : set memory size of the corewar game");
+            System.out.println("-cy [MAX CYCLE] : set max cycle of corewar game");
+            System.out.println("-nCo [combats] : set numbers of combat between two warrior");
         }
 
     }

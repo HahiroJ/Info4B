@@ -192,9 +192,9 @@ public class Player implements Runnable {
                     for (int i = 0; i < Server.clients.size(); i++) {
                         if (Server.pw.get(i) != null && i != this.getid()) {
                             Server.pw.get(i).println("Server Info => "+this.pseudo+"#"+this.getid()+" is disconnected !");
-                            System.out.println("Server Info => "+this.pseudo+"#"+this.getid()+" is disconnected !");
                         }
                     }
+                    System.out.println("Info => "+this.pseudo+"#"+this.getid()+" is disconnected !");
                     break;
                 }
                 if (mes.startsWith("!")) {

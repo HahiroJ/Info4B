@@ -14,7 +14,7 @@ public class Corewar {
         int MEMORY_SIZE = 8000;
         int MAX_CYCLE = 1000000;
         //long speed = 0;
-        int combat = 40;
+        int combat = 20;
         Scanner scanner = new Scanner(new InputStreamReader(System.in));
         ArrayList<LinkedList<Process>> warriors = new ArrayList<LinkedList<Process>>();
 

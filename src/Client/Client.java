@@ -45,39 +45,47 @@ public class Client {
             }
         }
 
-        Scanner scanner = new Scanner(new InputStreamReader(System.in));
-        while (pseudo.equals("")) {
-            System.out.print("Choose a pseudo : ");
-            pseudo = scanner.nextLine();
-        }
-
-        try {
-            Socket socket = new Socket(ip, port);
-            System.out.println("Socket => " + socket);
-
-            BufferedReader bufferer_reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter print_writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
-
-            print_writer.println(pseudo);
-
-            Thread dataEntry = new Thread(new DataEntry(print_writer));
-            dataEntry.start();
-
-            while (!stop) {
-                String mes = bufferer_reader.readLine();
-                System.out.println(mes);
+        if (!help) {
+            Scanner scanner = new Scanner(new InputStreamReader(System.in));
+            while (pseudo.equals("")) {
+                System.out.print("Choose a pseudo : ");
+                pseudo = scanner.nextLine();
             }
 
-            System.out.println("!quit");
+            try {
+                Socket socket = new Socket(ip, port);
+                System.out.println("Socket => " + socket);
 
-            bufferer_reader.close();
-            print_writer.close();
-            socket.close();
-            System.exit(0);
+                BufferedReader bufferer_reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                PrintWriter print_writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
 
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+                print_writer.println(pseudo);
+
+                Thread dataEntry = new Thread(new DataEntry(print_writer));
+                dataEntry.start();
+
+                while (!stop) {
+                    String mes = bufferer_reader.readLine();
+                    System.out.println(mes);
+                }
+
+                System.out.println("!quit");
+
+                bufferer_reader.close();
+                print_writer.close();
+                socket.close();
+                System.exit(0);
+
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        else {
+            System.out.println("~~ CoreWar Game Server ~~");
+            System.out.println("-p [port] : set port of server");
+            System.out.println("-ip [ip] : set ip of server");
+            System.out.println("-pseudo [pseudo] : set memory your pseudo on server");
         }
 
     }

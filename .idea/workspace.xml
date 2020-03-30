@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fb6016be-811d-4524-a628-9fe017e1d748" name="Default Changelist" comment="" />
+    <list default="true" id="17b39738-42db-4fe0-83c5-c65e9fcd2d34" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ProjectId" id="1ZRY9k1epURiI4iHoPdYf5vt5Uw" />
+  <component name="ProjectId" id="1ZlFnDk3WEvcP9bjOKHI5pGXIbJ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -17,31 +17,43 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/modif" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Jonathan\IdeaProjects\Info4B_projet\src\Client" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Jonathan\IdeaProjects\Info4B_projet\src\GUI" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI" />
+      <module name="Info4B_projet" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.GUI" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="fb6016be-811d-4524-a628-9fe017e1d748" name="Default Changelist" comment="" />
-      <created>1584803223437</created>
+      <changelist id="17b39738-42db-4fe0-83c5-c65e9fcd2d34" name="Default Changelist" comment="" />
+      <created>1585405938083</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1584803223437</updated>
-      <workItem from="1584803225309" duration="2231000" />
-      <workItem from="1584890578933" duration="20000" />
-      <workItem from="1584890692880" duration="2033000" />
-      <workItem from="1584904342829" duration="314000" />
-      <workItem from="1584983117596" duration="2928000" />
-      <workItem from="1585047639601" duration="1336000" />
-      <workItem from="1585311866866" duration="102000" />
-      <workItem from="1585311989599" duration="8152000" />
+      <updated>1585405938083</updated>
+      <workItem from="1585405941279" duration="1514000" />
+      <workItem from="1585413468595" duration="1992000" />
+      <workItem from="1585583769823" duration="260000" />
     </task>
     <servers />
   </component>
@@ -49,13 +61,29 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1220" y="275" key="FileChooserDialogImpl" timestamp="1584991757385">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1585414580350">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1220" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1584991757385" />
-    <state x="342" y="140" key="new project wizard" timestamp="1585314161290">
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1585414580350" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1585415511776">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="342" y="140" key="new project wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1585314161290" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1585415511776" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1585415511776">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1585415511776" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1585415511776">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1585415511776" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1585415511776">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1585415511776" />
+    <state x="342" y="140" key="new project wizard" timestamp="1585414479092">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="342" y="140" key="new project wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1585414479092" />
   </component>
 </project>

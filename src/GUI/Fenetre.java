@@ -1,28 +1,39 @@
-import java.awt.Color;
-import java.awt.FlowLayout;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Menu;
+import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import javax.swing.SwingUtilities;
 
 
-public class Fenetre extends JFrame
+public class Fenetre extends JFrame implements Runnable
 {
-    private final Actu actualiseur = new Actu();
-    //private Menu menu;
+    private BufferedReader buffered_reader;
+    private PrintWriter print_writer;
+    private Menu menu; //La classe qui créer le menu
+    private PreDisplay predisplay; //La classe qui créer la partie qui demande le pseudo
+    private JFrame preFenetre;
+    private JButton entrer;
 
-    public Fenetre()
+    public Fenetre(PrintWriter pw)
     {
+        this.buffered_reader = new BufferedReader(new InputStreamReader(System.in));
+        this.print_writer = pw;
         build();
     }
-
     void build()
     {
-        /*this.setLayout(new BorderLayout());
-        if(object != null)
-        {
-            build_CPU();
-        }*/
-        menu();
+        this.setLayout(new BorderLayout());
+        build_CPU();
+        build_Chat();
+
+        this.predisplay = new PreDisplay(this.print_writer, this);
+        this.menu = new Menu(this.print_writer, this.predisplay);
+
+        this.setJMenuBar(menu.getMB());
         sizeF();
         title();
         this.setBackground(Color.cyan);
@@ -32,30 +43,33 @@ public class Fenetre extends JFrame
     void visibility() { this.setVisible(true); } //visible
     void title() { this.setTitle("CoreWar");} //titre
 
-    private void menu()
-    {
-        JMenuBar mb = new JMenuBar();
-        JMenuItem i11, i12, i21, i22;
-        JMenu menu1 = new JMenu("Partie");
+    private void build_Chat() {
 
-        i11 = new JMenuItem("Nouvelle Partie");
-        i12 = new JMenuItem("Créer un nouveau guerrier");
-        menu1.add(i11); menu1.add(i12);
+        //--Rappel c'est un BorderLayout--
+        JPanel right = new JPanel();
+        JTextArea jta = new JTextArea();
+        GridLayout gl_right = new GridLayout(1, 1);
 
-        JMenu menu2 = new JMenu("Classements");
 
-        i21 = new JMenuItem("Classement des joueurs");
-        i22 = new JMenuItem("Classement des Warriormes");
-        menu2.add(i21); menu2.add(i22);
+        JPanel bot = new JPanel();
+        bot.setBackground(Color.GRAY);
+        JTextField messageBox = new JTextField();
+        JButton envoyer = new JButton("Envoyer");
 
-        JMenu menu3 = new JMenu("En savoir plus");
+        GridLayout gl_bot = new GridLayout(1, 5);
+        bot.setLayout(gl_bot);
+        bot.add(messageBox);
+        bot.add(envoyer);
 
-        mb.add(menu1); mb.add(menu2); mb.add(menu3);
-        this.setJMenuBar(mb);
-        this.setBackground(Color.cyan);
+        right.setLayout(gl_right);
+        right.add(jta);
+
+        this.getContentPane().add(right, BorderLayout.EAST);
+        this.getContentPane().add(bot, BorderLayout.SOUTH);
     }
 
-    private void build_CPU() {
+    private void build_CPU()
+    {
         ArrayList<JButton> lb = new ArrayList<JButton>();
 
         //--Rappel c'est un BorderLayout--
@@ -68,7 +82,7 @@ public class Fenetre extends JFrame
             lb.add(new JButton(""));
             top.add(lb.get(i));
         }
-        this.getContentPane().add(top, BorderLayout.NORTH);
+        this.getContentPane().add(top, BorderLayout.CENTER);
     }
 
     public void actualiser()
@@ -80,56 +94,11 @@ public class Fenetre extends JFrame
 
     }
 
-    /* ---
-        Début de la config du GUI
-     --- */
 
-    class Actu implements Runnable
+    @Override
+    public void run()
     {
-        /* ---
-            Actualisation de la page JFrame
-         --- */
-
-        private boolean running;
-        private int delay;
-
-        public Actu()
-        {
-            delay = 10;
-        }
-
-        public void setDelay(int d)
-        {
-            this.delay = d;
-        }
-
-        @Override
-        public void run()
-        {
-            while(running)
-            {
-                actualiser();
-                try
-                {
-                    Thread.sleep(delay);
-                }catch(InterruptedException e){interrupt();}
-            }
-        }
-
-        public void start()
-        {
-            Thread a = new Thread(null, this);
-            running = true;
-            a.start();
-        }
-
-        /*
-            Appuyer sur des boutons
-         */
-
-        public void interrupt()
-        {
-            Thread.currentThread().interrupt();
-        }
+        predisplay.setVisible(true);
     }
 }
+

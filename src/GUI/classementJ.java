@@ -1,9 +1,8 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-import java.util.stream.Stream;
 
-public class ClassementJ
+class ClassementJ
 {
     BufferedReader fr;
     BufferedWriter bw;

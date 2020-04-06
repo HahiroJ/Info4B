@@ -1,5 +1,9 @@
 package Server;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -19,6 +23,8 @@ public class Server {
     static int MEMORY_SIZE = 8000;
     static int MAX_CYCLE = 1000000;
     static int combat = 20;
+    
+    static String rankPath = "/home/lucas/Documents/IE/Semestre 4/Info4B/Projet/Info4B/src/Server/rank.txt";
 
     public static void main(String[] args) {
 
@@ -95,14 +101,66 @@ public class Server {
         }
     }
 
-    static public void ranking(int i) {
-        String s = "~~~ Ranking ~~~\n";
-        for (Player player : clients) {
-            s += "---> "+player.getPseudo()+"#"+player.getid()+" : "+player.getScore()+"\n";
+    synchronized static public void ranking(int i) {
+        String temp = "";
+        File fichier = new File(rankPath);
+        if (fichier.exists()) {
+            try {
+                BufferedReader fr = new BufferedReader(new FileReader(rankPath));
+                String ligne;
+                while ((ligne = fr.readLine()) != null) {
+                    temp += ligne+"\n";
+            }
+                temp += "\n";
+                fr.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } else {
+            temp += "Rank File doesn't exist ! \n";
         }
-        s += "~~~ Ranking ~~~\n";
-        s += "\n";
-        pw.get(i).println(s); 
+        pw.get(i).println("Server Info Ranking => \n" + temp); 
+    }
+
+    synchronized static public void rankFile() {
+        int maxP =  0;
+        for (Player player : clients) {
+            String temp = "" + player.getPseudo()+"#"+player.getid();
+            maxP = (temp.length() > maxP - 1) ? temp.length() + 1 : maxP; 
+        }
+        String sep = "+";
+        for (int i = 0; i < maxP; i++) {
+            sep += "-";
+        }
+        sep += "+----+\n";
+        String fin = sep;
+        for (Player player : clients) {
+            String tempP = "" + player.getPseudo()+"#"+player.getid();
+            String tempS = "" + player.getScore();
+            String tempF = "|"+tempP;
+            for (int i = tempP.length(); i < maxP; i++) {
+                tempF += " ";
+            }
+            tempF += "|";
+            for (int i = tempS.length(); i < 4; i++) {
+                tempF += " ";
+            }
+            tempF += tempS+"|\n";
+            fin += tempF;
+            fin += sep;
+        }
+
+        try {
+            File fichier = new File(rankPath);
+            FileWriter fw =new FileWriter(fichier);
+            fw.write(fin.trim());
+            fw.close();
+            fichier.createNewFile();
+        } catch (Exception e) {
+            //TODO: handle exception
+            e.printStackTrace();
+        }
     }
 
     static synchronized public void game() {
@@ -125,6 +183,7 @@ public class Server {
                 //TODO: handle exception
                 e.printStackTrace();
             }
+            rankFile();
             for (int i = 0; i < clients.size(); i++) {
                 ranking(i);
             }

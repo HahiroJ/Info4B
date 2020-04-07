@@ -93,6 +93,7 @@ public class Server {
     static synchronized public void remove(int i) {
         pw.remove(i);
         clients.remove(i);
+        rankFile();
     }
 
     static public void sendAll(String msg) {

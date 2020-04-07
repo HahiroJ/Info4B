@@ -79,6 +79,7 @@ public class Player implements Runnable {
     synchronized public void setPseudo(String p) {
         this.pseudo = p;
         Server.pw.get(this.getid()).println("Server Info => Your new nickname is : " + this.pseudo + "#" + this.getid());
+        Server.rankFile();
     }
 
     public void sendAll(String message) {

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Server {
@@ -19,6 +20,7 @@ public class Server {
     static LinkedList<PrintWriter> pw;
     //static int idClient;
     static LinkedList<Player> clients;
+    static HashMap<String,String> fileCache = new HashMap<>();
 
     static int MEMORY_SIZE = 8000;
     static int MAX_CYCLE = 1000000;
@@ -93,7 +95,7 @@ public class Server {
     static synchronized public void remove(int i) {
         pw.remove(i);
         clients.remove(i);
-        rankFile();
+        //rankFile();
     }
 
     static public void sendAll(String msg) {
@@ -102,25 +104,23 @@ public class Server {
         }
     }
 
+    synchronized static public String getFileCache(String key) {
+        if (fileCache.containsKey(key)) {
+            return fileCache.get(key);
+        }
+        else {
+            System.err.println("Error, files doesn't exit in cache");
+            return null;
+        }
+    }
+
     synchronized static public void ranking(int i) {
         String temp = "";
-        File fichier = new File(rankPath);
-        if (fichier.exists()) {
-            try {
-                BufferedReader fr = new BufferedReader(new FileReader(rankPath));
-                String ligne;
-                while ((ligne = fr.readLine()) != null) {
-                    temp += ligne+"\n";
-            }
-                temp += "\n";
-                fr.close();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        } else {
-            temp += "Rank File doesn't exist ! \n";
-        }
+        
+        if ((temp = getFileCache(rankPath)) == null) {
+            temp = "Rank File doesn't exist ! \n";
+        } 
+
         pw.get(i).println("Server Info Ranking => \n" + temp); 
     }
 
@@ -158,6 +158,7 @@ public class Server {
             fw.write(fin.trim());
             fw.close();
             fichier.createNewFile();
+            fileCache.put(rankPath, fin.trim());
         } catch (Exception e) {
             //TODO: handle exception
             e.printStackTrace();

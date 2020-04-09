@@ -1,14 +1,11 @@
 package Server;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Server {
@@ -20,7 +17,8 @@ public class Server {
     static LinkedList<PrintWriter> pw;
     //static int idClient;
     static LinkedList<Player> clients;
-    static HashMap<String,String> fileCache = new HashMap<>();
+    //static HashMap<String,String> fileCache = new HashMap<>();
+    static FileCache cache;
 
     static int MEMORY_SIZE = 8000;
     static int MAX_CYCLE = 1000000;
@@ -64,6 +62,7 @@ public class Server {
         if (!help) {
             pw = new LinkedList<PrintWriter>();
             clients = new LinkedList<Player>();
+            cache = FileCache.getInstance();
             try {
                 ServerSocket server_socket = new ServerSocket(port);
                 System.out.println("Socket listen => " + server_socket);
@@ -104,7 +103,7 @@ public class Server {
         }
     }
 
-    synchronized static public String getFileCache(String key) {
+    /*synchronized static public String getFileCache(String key) {
         if (fileCache.containsKey(key)) {
             return fileCache.get(key);
         }
@@ -112,12 +111,12 @@ public class Server {
             System.err.println("Error, files doesn't exit in cache");
             return null;
         }
-    }
+    }*/
 
-    synchronized static public void ranking(int i) {
+    static public void ranking(int i) {
         String temp = "";
         
-        if ((temp = getFileCache(rankPath)) == null) {
+        if ((temp = cache.getFile(rankPath)) == null) {
             temp = "Rank File doesn't exist ! \n";
         } 
 
@@ -158,7 +157,7 @@ public class Server {
             fw.write(fin.trim());
             fw.close();
             fichier.createNewFile();
-            fileCache.put(rankPath, fin.trim());
+            cache.put(rankPath, fin.trim());
         } catch (Exception e) {
             //TODO: handle exception
             e.printStackTrace();

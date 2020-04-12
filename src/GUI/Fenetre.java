@@ -1,10 +1,10 @@
+package GUI;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Menu;
 import java.awt.event.ActionEvent;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.awt.event.ActionListener;
+import java.io.*;
 import java.util.ArrayList;
 import javax.swing.SwingUtilities;
 
@@ -17,6 +17,15 @@ public class Fenetre extends JFrame implements Runnable
     private PreDisplay predisplay; //La classe qui créer la partie qui demande le pseudo
     private JFrame preFenetre;
     private JButton entrer;
+    private JTextArea chatBox;
+
+
+    public Fenetre()
+    {
+        this.buffered_reader = null;
+        this.print_writer = null;
+        build();
+    }
 
     public Fenetre(PrintWriter pw)
     {
@@ -26,8 +35,9 @@ public class Fenetre extends JFrame implements Runnable
     }
     void build()
     {
+        this.setBackground(Color.lightGray);
         this.setLayout(new BorderLayout());
-        build_CPU();
+       // build_CPU();
         build_Chat();
 
         this.predisplay = new PreDisplay(this.print_writer, this);
@@ -39,51 +49,119 @@ public class Fenetre extends JFrame implements Runnable
         this.setBackground(Color.cyan);
     }
 
-    void sizeF(){ this.setSize(1000,1000); }
+    void sizeF(){ this.setSize(500,500); }
     void visibility() { this.setVisible(true); } //visible
     void title() { this.setTitle("CoreWar");} //titre
 
     private void build_Chat() {
 
         //--Rappel c'est un BorderLayout--
-        JPanel right = new JPanel();
-        JTextArea jta = new JTextArea();
-        GridLayout gl_right = new GridLayout(1, 1);
+        JTextField messageBox = new JTextField(30);
+        messageBox.requestFocusInWindow();
+
+        JButton sendMessage = new JButton("Envoyer");
+
+        chatBox = new JTextArea();
+        chatBox.setEditable(false);
+        chatBox.setFont(new Font("Serif", Font.PLAIN, 15));
+        chatBox.setLineWrap(true);
+
+        JPanel southPanel = new JPanel();
+        southPanel.setLayout(new GridBagLayout());
+
+        GridBagConstraints left = new GridBagConstraints();
+        left.insets = new Insets(0, 10, 0, 0);
+        left.anchor = GridBagConstraints.LINE_START;
+        left.fill = GridBagConstraints.HORIZONTAL;
+        left.weightx = 512.0D;
+        left.weighty = 1.0D;
+
+        GridBagConstraints right = new GridBagConstraints();
+        right.insets = new Insets(0, 10, 0, 0);
+        right.anchor = GridBagConstraints.LINE_END;
+        right.fill = GridBagConstraints.NONE;
+        right.weightx = 1.0D;
+        right.weighty = 1.0D;
+
+        southPanel.add(messageBox, left);
+        southPanel.add(sendMessage, right);
+
+        sendMessage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(messageBox.getText().length() >= 1)
+                {
+                    print_writer.println(messageBox.getText());
+                    chatBox.append("\n"+messageBox.getText());
+                    messageBox.setText("");
+                }
+            }
+        }); //Ligne qui appelle le constructeur qui permet les DataEntry
+
+        this.getContentPane().add(southPanel, BorderLayout.SOUTH);
+        this.getContentPane().add(new JScrollPane(chatBox), BorderLayout.CENTER);
 
 
-        JPanel bot = new JPanel();
-        bot.setBackground(Color.GRAY);
-        JTextField messageBox = new JTextField();
-        JButton envoyer = new JButton("Envoyer");
-
-        GridLayout gl_bot = new GridLayout(1, 5);
-        bot.setLayout(gl_bot);
-        bot.add(messageBox);
-        bot.add(envoyer);
-
-        right.setLayout(gl_right);
-        right.add(jta);
-
-        this.getContentPane().add(right, BorderLayout.EAST);
-        this.getContentPane().add(bot, BorderLayout.SOUTH);
     }
 
     private void build_CPU()
     {
         ArrayList<JButton> lb = new ArrayList<JButton>();
 
-        //--Rappel c'est un BorderLayout--
-
         JPanel top = new JPanel();
+        JPanel top_mid = new JPanel();
+
         GridLayout gl = new GridLayout(64, 125);
-        top.setLayout(gl);
+
+        top.setLayout(new BorderLayout());
+        top_mid.setLayout(gl);
 
         for (int i = 0; i < 8000; i++) {
             lb.add(new JButton(""));
-            top.add(lb.get(i));
+            top_mid.add(lb.get(i));
         }
+
+        top.add(top_mid, BorderLayout.CENTER);
+        top.setBackground(Color.GRAY);
         this.getContentPane().add(top, BorderLayout.CENTER);
+
     }
+
+    public void ReadServ(String msg)
+    {
+        this.chatBox.append("\n"+msg);
+    }
+
+    //---Méthode lié a la soumission d'un fichier
+
+    public void submit(String filePath) {
+        String warrior ="";
+        warrior = fileRead(filePath);
+        System.out.println("~~ Your Warrior ~~\n");
+        System.out.println(warrior);
+        System.out.println("~~ Your Warrior (end) ~~\n");
+
+        this.print_writer.println("!warriorsubmit");
+        this.print_writer.println(warrior);
+        this.print_writer.println("!end");
+    }
+
+    public String fileRead(String path) {
+        String fichier = "";
+        try {
+            BufferedReader fr = new BufferedReader(new FileReader(path));
+            String ligne;
+            while ((ligne = fr.readLine()) != null) {
+                fichier += ligne+"\n";
+            }
+            fr.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return fichier;
+    }
+    //---Fin méthode lié a la soumission d'un guerrier
 
     public void actualiser()
     {
@@ -94,11 +172,22 @@ public class Fenetre extends JFrame implements Runnable
 
     }
 
+    public void sendMessageButtonListener()
+    {
+
+    }
+
 
     @Override
     public void run()
     {
         predisplay.setVisible(true);
+        while(true) {
+            if (getDefaultCloseOperation() == JFrame.EXIT_ON_CLOSE) {
+                this.print_writer.println("!quit");
+            }
+        }
     }
+
 }
 

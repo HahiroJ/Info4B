@@ -23,7 +23,7 @@ The execution of the programs is equally simple. The MARS executes one instructi
 > Source: [The beginners' guide to Redcode](http://www.vyznev.net/corewar/guide.html)
 
 ## _RedCode_
-Support RedCode '94 Standard and Labels.
+Support RedCode '94 Standard and Labels
 
 ### Instruction set
 

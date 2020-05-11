@@ -3,7 +3,7 @@ package GUI_server;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import CoreWar.Match;
+import CoreWarGUI.Match;
 import MARS_CORE.Compiler;
 import MARS_CORE.Process;
 

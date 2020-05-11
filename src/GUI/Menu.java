@@ -1,8 +1,9 @@
-package GUI;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
@@ -16,6 +17,7 @@ public class Menu extends JMenuBar implements ActionListener
     moteur de notre Client et qui va mettre en relation toute les autres
     classes pour permettre au GUI d'être propre
     */
+    private JTextArea chatBox;
 
     private JMenuBar mb;
 
@@ -41,12 +43,13 @@ public class Menu extends JMenuBar implements ActionListener
 
     //Ci-dessus la nomenclature du menu
 
-    public Menu(PrintWriter pw, PreDisplay pd)
+    public Menu(PrintWriter pw, PreDisplay pd, JTextArea chat)
     {
         /*
         Constructeur du menu, ici on initialise tout les composants
         du menu et on créer des instances pour toute nos variables
          */
+        this.chatBox = chat;
 
         mb = new JMenuBar();
         this.pw = pw;
@@ -55,47 +58,79 @@ public class Menu extends JMenuBar implements ActionListener
 
         menu1 = new JMenu("Partie");
         //--------
-        warriorsubmit = new JMenuItem("Soumettre un Guerrier");
-        warriorsubmit.addActionListener(this);
+        this.warriorsubmit = new JMenuItem("Soumettre un Guerrier");
+        this.warriorsubmit.addActionListener(this);
 
-        warriorremove = new JMenuItem("Supprimer un Guerrier");
-        warriorremove.addActionListener(this);
+        this.warriorremove = new JMenuItem("Supprimer un Guerrier");
+        this.warriorremove.addActionListener(this);
 
-        menu1.add(warriorsubmit); menu1.add(warriorremove);
 
-        menu2 = new JMenu("Informations");
+        this.menu1.add(warriorsubmit); this.menu1.add(warriorremove);
+
+        this.menu2 = new JMenu("Informations");
         //--------
-        changeUSER = new JMenuItem("Changer pseudo");
-        changeUSER.addActionListener(this);
+        this.changeUSER = new JMenuItem("Changer pseudo");
+        this.changeUSER.addActionListener(this);
 
-        info = new JMenuItem("Info du serveur");
-        info.addActionListener(this);
+        this.info = new JMenuItem("Info du serveur");
+        this.info.addActionListener(this);
 
-        list = new JMenuItem("Liste des joueurs");
-        list.addActionListener(this);
+        this.list = new JMenuItem("Liste des joueurs");
+        this.list.addActionListener(this);
 
-        sousmenu2 = new JMenu("Classements");
+        this.sousmenu2 = new JMenu("Classements");
             //---------
-            rankJ = new JMenuItem("Joueurs");
-            rankJ.addActionListener(this);
+            this.rankJ = new JMenuItem("Joueurs");
+            this.rankJ.addActionListener(this);
 
-            rankP = new JMenuItem("Programmes");
-            rankP.addActionListener(this);
+            this.rankP = new JMenuItem("Programmes");
+            this.rankP.addActionListener(this);
 
-        sousmenu2.add(rankJ); sousmenu2.add(rankP);
-        menu2.add(changeUSER); menu2.add(info); menu2.add(list); menu2.add(sousmenu2);
+        this.sousmenu2.add(rankJ); this.sousmenu2.add(rankP);
+        this.menu2.add(changeUSER); this.menu2.add(info); this.menu2.add(list); this.menu2.add(sousmenu2);
 
-        menu3 = new JMenu("Aide");
+        this.menu3 = new JMenu("Aide");
         //--------
-        help = new JMenuItem("Liste des commandes");
-            help.addActionListener(this);
-        menu3.add(help);
+        this.help = new JMenuItem("Liste des commandes");
+            this.help.addActionListener(this);
+        this.menu3.add(help);
 
-        mb.add(menu1); mb.add(menu2); mb.add(menu3);
+        this.mb.add(menu1); this.mb.add(menu2); this.mb.add(menu3);
 
     }
 
     public JMenuBar getMB(){return this.mb;}
+
+    //---Méthode lié a la soumission d'un fichier
+
+    public void submit(String filePath) {
+        String warrior ="";
+        warrior = fileRead(filePath);
+        this.chatBox.append("~~ Your Warrior ~~\n");
+        this.chatBox.append(warrior);
+        this.chatBox.append("~~ Your Warrior (end) ~~\n");
+
+        this.pw.println("!warriorsubmit");
+        this.pw.println(warrior);
+        this.pw.println("!end");
+    }
+
+    public String fileRead(String path) {
+        String fichier = "";
+        try {
+            BufferedReader fr = new BufferedReader(new FileReader(path));
+            String ligne;
+            while ((ligne = fr.readLine()) != null) {
+                fichier += ligne+"\n";
+            }
+            fr.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return fichier;
+    }
+    //---Fin méthode lié a la soumission d'un guerrier
 
     @Override
     public void actionPerformed(ActionEvent e)
@@ -145,7 +180,7 @@ public class Menu extends JMenuBar implements ActionListener
                     envoie au serveur la commande pour ajouter un guerrier à la partie
                      */
                     //TODO Vérfier que le fichier est compilable pour savoir si c'est un guerrier utilisable, sinon, non validation
-                    pw.println("!warriorsubmit "+JF.getSelectedFile().getAbsolutePath());
+                    submit(JF.getSelectedFile().getAbsolutePath());
                     jd.dispose();
                 }
             });

@@ -9,16 +9,16 @@ import java.util.LinkedList;
 public class Server{
 
     static int port = 8080;
-    static int maxClients = 10;
+    static int maxClients = 20;
     static boolean help = false;
     //static PrintWriter pw[];
     static LinkedList<PrintWriter> pw;
     //static int idClient;
     static LinkedList<Player> clients;
 
-    static int MEMORY_SIZE = 8000;
+    static int MEMORY_SIZE = 800;
     static int MAX_CYCLE = 1000000;
-    static int combat = 20;
+    static int combat = 1; //Nombre de combat pour tester le vrai vainqueur
 
     static ClassementJ cj;
 

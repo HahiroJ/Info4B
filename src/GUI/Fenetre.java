@@ -1,11 +1,11 @@
-package GUI;
-
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 import javax.swing.SwingUtilities;
 
 
@@ -41,7 +41,7 @@ public class Fenetre extends JFrame implements Runnable
         build_Chat();
 
         this.predisplay = new PreDisplay(this.print_writer, this);
-        this.menu = new Menu(this.print_writer, this.predisplay);
+        this.menu = new Menu(this.print_writer, this.predisplay, this.chatBox);
 
         this.setJMenuBar(menu.getMB());
         sizeF();
@@ -132,37 +132,6 @@ public class Fenetre extends JFrame implements Runnable
         this.chatBox.append("\n"+msg);
     }
 
-    //---Méthode lié a la soumission d'un fichier
-
-    public void submit(String filePath) {
-        String warrior ="";
-        warrior = fileRead(filePath);
-        System.out.println("~~ Your Warrior ~~\n");
-        System.out.println(warrior);
-        System.out.println("~~ Your Warrior (end) ~~\n");
-
-        this.print_writer.println("!warriorsubmit");
-        this.print_writer.println(warrior);
-        this.print_writer.println("!end");
-    }
-
-    public String fileRead(String path) {
-        String fichier = "";
-        try {
-            BufferedReader fr = new BufferedReader(new FileReader(path));
-            String ligne;
-            while ((ligne = fr.readLine()) != null) {
-                fichier += ligne+"\n";
-            }
-            fr.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return fichier;
-    }
-    //---Fin méthode lié a la soumission d'un guerrier
-
     public void actualiser()
     {
         /* ---
@@ -182,11 +151,18 @@ public class Fenetre extends JFrame implements Runnable
     public void run()
     {
         predisplay.setVisible(true);
-        while(true) {
-            if (getDefaultCloseOperation() == JFrame.EXIT_ON_CLOSE) {
-                this.print_writer.println("!quit");
+        String mes;
+        try {
+            while (!(mes = this.buffered_reader.readLine()).equals("!quit"))
+            {
+                    this.print_writer.println(mes);
             }
-        }
+           // this.print_writer.println("!quit");
+            this.buffered_reader.close();
+            this.print_writer.close();
+            System.exit(0);
+        } catch (IOException e) {  e.printStackTrace();}
+        Client.stop = true;
     }
 
 }

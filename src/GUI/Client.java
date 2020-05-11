@@ -1,5 +1,3 @@
-package GUI;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -72,8 +70,7 @@ public final class Client
                 System.out.println(mes);
                 windows.ReadServ(mes);
             }
-
-            System.out.println("!quit");
+            // System.out.println("!quit");
             bufferer_reader.close();
             pw.close();
             socket.close();

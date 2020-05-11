@@ -8,6 +8,20 @@
             "type": "java",
             "name": "CodeLens (Launch) - Client",
             "request": "launch",
+            "mainClass": "Client.Client",
+            "projectName": "Info4B_b3cebc31"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Server",
+            "request": "launch",
+            "mainClass": "Server.Server",
+            "projectName": "Info4B_b3cebc31"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Client",
+            "request": "launch",
             "mainClass": "Client",
             "projectName": "Info4B_projet_dc3b85a8"
         },

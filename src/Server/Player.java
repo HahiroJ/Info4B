@@ -138,7 +138,7 @@ public class Player implements Runnable {
                 // System.out.println(contenu);  Permet de regarder le contenue de la String
                 if(this.filePath == "") {
                     int rand =(int) (Math.random()*100+1);
-                    this.filePath = "/home/lucas/Documents/IE/Semestre 4/Info4B/Projet/Info4B/src/Server/programs/"+this.pseudo+"#"+rand+".asm";
+                    this.filePath = ""+this.pseudo+"#"+rand+".asm";
                 }
                 File fichier = new File(this.filePath);
                 FileWriter fw =new FileWriter(fichier);
@@ -175,7 +175,7 @@ public class Player implements Runnable {
             s += "Players Connected : " + Server.clients.size() + "/" + Server.maxClients + "\n";
             s += "Memory Size : " + Server.MEMORY_SIZE + "\n";
             s += "Max cycle : " + Server.MAX_CYCLE + "\n";
-            s += "number of fights : " + Server.combat + " \n";
+            s += "number of fights between two warrior : " + Server.combat + " \n";
             s += "\n";
             Server.pw.get(this.getid()).println("Server Info => " + s);
         }
@@ -186,6 +186,13 @@ public class Player implements Runnable {
     public void run() {
         // TODO Auto-generated method stub
         try {
+            Server.pw.get(this.getid()).println("Server Info => Welcome on CoreWar Game Server !");
+            System.out.println("Info => "+this.pseudo+"#"+this.getid()+" is connected !");
+            for (int i = 0; i < Server.clients.size(); i++) {
+                if (Server.pw.get(i) != null && i != this.getid()) {
+                    Server.pw.get(i).println("Server Info => "+this.pseudo+"#"+this.getid()+" is connected !");
+                }
+            }
             while (true) {
                 String mes = this.buffered_reader.readLine();
                 System.out.println("Send by " + this.pseudo+"#"+this.getid()+" => "+mes);

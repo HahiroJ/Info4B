@@ -39,7 +39,7 @@ public class Compiler {
                 String line = removeSpaces(scanner.nextLine());
                 Process p = processCompile(labels, line, position);
                 //si une instruction existe, on l'ajoute au fil
-                //d'instructions du Warriorme
+                //d'instructions du Warrior
                 if (p != null) {
                     listProcess.add(p);
                     position++;

@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
+import java.nio.file.Paths;
 
 public class Server {
 
@@ -24,7 +25,9 @@ public class Server {
     static int MAX_CYCLE = 1000000;
     static int combat = 20;
     
-    static String rankPath = "/home/lucas/Documents/IE/Semestre 4/Info4B/Projet/Info4B/src/Server/rank.txt";
+    static String path = Paths.get("").toAbsolutePath().toString();
+    //static String path = System.getProperty("user.dir");
+    static String rankPath = "rank.txt";
 
     public static void main(String[] args) {
 
@@ -40,12 +43,15 @@ public class Server {
                 }
                 case "-mS": {
                     MEMORY_SIZE = Integer.parseInt(args[i + 1]);
+                    break;
                 }
                 case "-cy": {
                     MAX_CYCLE = Integer.parseInt(args[i + 1]);
+                    break;
                 }
                 case "-nCo": {
                     combat = Integer.parseInt(args[i + 1]);
+                    break;
                 }
                 case "-h":
                 case "--help": {
@@ -64,8 +70,19 @@ public class Server {
             clients = new LinkedList<Player>();
             cache = FileCache.getInstance();
             try {
+                System.out.println("~~~ CoreWar Game Server Start ~~~");
+                System.out.println("Info => Working Directory : " + path);
                 ServerSocket server_socket = new ServerSocket(port);
                 System.out.println("Socket listen => " + server_socket);
+                System.out.println("Info => Server is ready !");
+                String s = "\n";
+                s += "Players Connected : " + clients.size() + "/" + maxClients + "\n";
+                s += "Memory Size : " + MEMORY_SIZE + "\n";
+                s += "Max cycle : " + MAX_CYCLE + "\n";
+                s += "number of fights between two warrior : " + combat + " \n";
+                s += "\n";
+                System.out.println("Info => " + s);
+                System.out.println("To change parameters restart server with new parameters. use --help for more informations.\n");
                 while (clients.size() < maxClients) {
                     Socket socket = server_socket.accept();
                     clients.add(new Player(socket));

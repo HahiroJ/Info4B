@@ -85,7 +85,7 @@ public class Client {
             System.out.println("~~ CoreWar Game Server ~~");
             System.out.println("-p [port] : set port of server");
             System.out.println("-ip [ip] : set ip of server");
-            System.out.println("-pseudo [pseudo] : set memory your pseudo on server");
+            System.out.println("-pseudo [pseudo] : set your pseudo on server");
         }
 
     }

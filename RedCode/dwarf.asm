@@ -1,5 +1,5 @@
 ; the dwarf
-loop	ADD #4, bomb
-     MOV bomb, @bomb
-     JMP loop
-bomb	DAT #0, #0
+    ADD #4, 3
+    MOV 2, @2
+    JMP -2
+    DAT #0, #0

@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 /**
  * la classe Warrior represente la liste des adresses à executer 
- * relative au Warriorme.
+ * relative au Warrior.
  * Le déroulement des adresses à executer est penser comme un buffer circulaire.  
  */
 
@@ -28,11 +28,15 @@ public class Warrior {
 
     public void execute(CPU cpu) {
         Register reg_A = this.registers.poll();
-        Process[] tempProcess = cpu.getMemory();
-        Instructions instruction = tempProcess[reg_A.getAdress()].getInstruction();
+        //Process[] tempProcess = cpu.getMemory();
+        Instructions instruction = cpu.getMemory()[reg_A.getAdress()].getInstruction();
         Register reg_B = cpu.execute_process(reg_A);
 
-        if (instruction != Instructions.DAT) {
+        if (instruction != Instructions.DAT && instruction != Instructions.SPL) {
+            this.registers.addLast(reg_B);
+        }
+        else {
+            this.registers.addLast(reg_A.plus(new Register(1)));
             this.registers.addLast(reg_B);
         }
     }

@@ -79,16 +79,14 @@ bomb DAT #0, #0
             * Register.java
 * GUI
 
-## _Etat_ 
-En cours de developpement.
+## _Client/Server_ 
 
-|MARS_CORE (terminer)   |CoreWar (en attente)   |GUI (en cours)    |
-|:----------------------|:----------------------|:-----------------|
-|Lucas HADEY            |Lucas Hadey            |Jonathan MARTIN   |
-|CPU et dependances -> ok|                       |                  |  
-|Compilateur RedCode -> ok|                       |                  |
+Un Client/Serveur qui permet d'échangé via un chat entre les particpants et de soumettre les programmes RedCode.
+Le serveur est responsable de l'execution du Corewar lorsque le nombre de participants est suffisants. 
+
  
-#### _Groupe_ 
+#### _Groupe_
+ 
 Jonathan MARTIN
 
 Lucas HADEY 

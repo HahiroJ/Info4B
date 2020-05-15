@@ -38,9 +38,9 @@ public class CPU {
             first = Memory[reg.getAdress()].getArg_A().getRegister();
             if (Memory[reg.getAdress()].getArg_A().getMode() != "_") {
                 if(Memory[reg.getAdress()].getArg_A().getMode() == "<") {
-                    Memory[reg.plus(first).getAdress()].getArg_A().setRegister(Memory[reg.plus(first).getAdress()].getArg_A().getRegister().minus(new Register(1,this.MEMORY_SIZE)));
+                    Memory[reg.plus(first).getAdress()].getArg_B().setRegister(Memory[reg.plus(first).getAdress()].getArg_B().getRegister().minus(new Register(1,this.MEMORY_SIZE)));
                 }
-                first = Memory[reg.plus(first).getAdress()].getArg_A().getRegister().plus(first);
+                first = Memory[reg.plus(first).getAdress()].getArg_B().getRegister().plus(first);
             } 
         }
 
